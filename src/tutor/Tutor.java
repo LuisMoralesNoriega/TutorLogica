@@ -16,6 +16,9 @@ public class Tutor {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        Loguin log = new Loguin();
+        log.setLocationRelativeTo(null);
+        log.setVisible(true);
     }
     
 }
