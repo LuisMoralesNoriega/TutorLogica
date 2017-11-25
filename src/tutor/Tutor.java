@@ -5,6 +5,8 @@
  */
 package tutor;
 
+import Pantallas.Loguin;
+
 /**
  *
  * @author Koko
