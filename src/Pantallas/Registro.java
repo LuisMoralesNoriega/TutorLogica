@@ -53,8 +53,11 @@ public class Registro extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jtxtCon1 = new javax.swing.JPasswordField();
         jtxtCon2 = new javax.swing.JPasswordField();
+        jLabel7 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Registro de Usuario");
 
         jtxNom.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
         jtxNom.addActionListener(new java.awt.event.ActionListener() {
@@ -93,6 +96,12 @@ public class Registro extends javax.swing.JFrame {
 
         jtxtCon2.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
 
+        jLabel7.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
+        jLabel7.setText("Tipo:");
+
+        jComboBox1.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Estudiante", "Administrador" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -108,20 +117,27 @@ public class Registro extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(jLabel5)
-                            .addGap(32, 32, 32)
-                            .addComponent(jtxtCon2, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel1)
                                 .addComponent(jLabel3))
                             .addGap(32, 32, 32)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jtxNom, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
-                                .addComponent(jtxtCon1)))))
-                .addGap(0, 80, Short.MAX_VALUE))
+                                .addComponent(jtxtCon1)))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel5)
+                                    .addGap(32, 32, 32))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(jLabel7)
+                                    .addGap(83, 83, 83)))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jtxtCon2)
+                                .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                .addGap(0, 71, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(136, 136, 136)
+                .addGap(138, 138, 138)
                 .addComponent(jButton2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -146,6 +162,10 @@ public class Registro extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtxtCon2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jButton2)
                 .addContainerGap())
@@ -205,19 +225,29 @@ public class Registro extends javax.swing.JFrame {
         JSONArray Usuarios = this.a.arrayUsers();
         JSONArray nuevo = new JSONArray();
         
+               
         if(Usuarios != null){
             JSONArray arr = (JSONArray) Usuarios.get(0);
             for(int i = 0; i < arr.size(); i++){                
                 JSONObject user = (JSONObject) arr.get(i);
                 String nom = user.get("nom").toString();
                 String con = user.get("con").toString();
+                String tip = user.get("tipo").toString();
                 String not = user.get("not").toString();
                 String pro = user.get("pro").toString();
-                nuevo.add(new Usuario(nom,con,not,pro));            
+                nuevo.add(new Usuario(nom,con,tip,not,pro));            
             }
         }
         
-        nuevo.add(new Usuario(pnom,pcon,"0","0"));
+        String tmp = this.jComboBox1.getSelectedItem().toString();
+        String tipo = "";
+        if(tmp.equals("Estudiante")){
+            tipo = "2";
+        }else{
+            tipo = "1";
+        }        
+        
+        nuevo.add(new Usuario(pnom,pcon,tipo,"0","0"));
         StringWriter out = new StringWriter();
         
         try {
@@ -269,12 +299,14 @@ public class Registro extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JTextField jtxNom;
     private javax.swing.JPasswordField jtxtCon1;
     private javax.swing.JPasswordField jtxtCon2;

@@ -6,7 +6,7 @@
 package Acciones;
 
 import Pantallas.Registro;
-import java.io.DataOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -15,6 +15,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -27,12 +28,26 @@ public class Archivo {
     
     
     public String ruta;
+    File ar;
 
-    public Archivo(){      
-        this.ruta = System.getProperty("user.dir") + "\\src\\Archivo\\datos.bin";
+    public Archivo(){   
+        File a = new File(".");
+        if(a.getAbsolutePath().contains("dist")){
+            this.ruta = a.getAbsolutePath() + "\\Archivo\\datos.bin";  
+        }else{
+            this.ruta = a.getAbsolutePath() + "\\src\\Archivo\\datos.bin";
+        }          
     }
     
+ 
+    
+    
+    //Metodo para alertas del programa
+    public void Alerta(String msg){
+        JOptionPane.showMessageDialog(null, msg, "Loguin", JOptionPane.WARNING_MESSAGE);
+    }
      
+    
     public void EscribirBinario(String cadena){        
         ObjectOutputStream salida = null;
         try{
@@ -52,6 +67,7 @@ public class Archivo {
         }
         
     }
+    
     
     public void LeerBinario(){
         try{

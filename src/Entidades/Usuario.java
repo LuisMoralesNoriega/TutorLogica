@@ -19,12 +19,14 @@ public class Usuario implements JSONStreamAware{
     
     public String nombre;
     public String contrasenia;
+    public String tipo; // 1 para adiminstrador 2 para estudiante
     public String nota;
     public String progreso;
 
-    public Usuario(String nombre, String contrasenia, String nota, String progreso) {
+    public Usuario(String nombre, String contrasenia, String tipo ,String nota, String progreso) {
         this.nombre = nombre;
         this.contrasenia = contrasenia;
+        this.tipo = tipo;
         this.nota = nota;
         this.progreso = progreso;
     }
@@ -45,6 +47,14 @@ public class Usuario implements JSONStreamAware{
         this.contrasenia = contrasenia;
     }
 
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+    
     public String getNota() {
         return nota;
     }
@@ -67,6 +77,7 @@ public class Usuario implements JSONStreamAware{
         LinkedHashMap obj = new LinkedHashMap();
         obj.put("nom", this.nombre);
         obj.put("con", this.contrasenia);
+        obj.put("tipo", this.tipo);
         obj.put("not", this.nota);
         obj.put("pro", this.progreso);
         JSONValue.writeJSONString(obj,out);

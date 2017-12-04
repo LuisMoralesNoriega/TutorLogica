@@ -45,6 +45,7 @@ public class Loguin extends javax.swing.JFrame {
         jPasswordField1 = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Tutor Logica de SIstemas");
 
         jLabel1.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
         jLabel1.setText("Nombre:");
@@ -158,6 +159,7 @@ public class Loguin extends javax.swing.JFrame {
         
         String nombre = this.jTextField1.getText();
         String contra = this.jPasswordField1.getText();
+        String tipo = "";
         
         JSONArray arrayUsuarios = this.a.arrayUsers();
         
@@ -171,6 +173,7 @@ public class Loguin extends javax.swing.JFrame {
                 String con = user.get("con").toString();
                 
                 if(nom.equals(nombre) && con.equals(contra)){
+                    tipo = user.get("tipo").toString();
                     valido = true;
                     break;
                 }else{
@@ -180,10 +183,17 @@ public class Loguin extends javax.swing.JFrame {
         }
 
         if(valido){
-            Administrador admin = new Administrador();
-            admin.setLocationRelativeTo(null);
-            admin.setVisible(true);            
-            this.dispose();
+            if(tipo.equals("1")){
+                Administrador admin = new Administrador();
+                admin.setLocationRelativeTo(null);
+                admin.setVisible(true);            
+                this.dispose();
+            }else if (tipo.equals("2")){
+                General gen = new General();
+                gen.setLocationRelativeTo(null);
+                gen.setVisible(true);
+                this.dispose();
+            }           
         }else{
             this.jTextField1.setText("");
             this.jPasswordField1.setText("");
