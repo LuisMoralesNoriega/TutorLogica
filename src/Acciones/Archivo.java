@@ -39,9 +39,6 @@ public class Archivo {
         }          
     }
     
- 
-    
-    
     //Metodo para alertas del programa
     public void Alerta(String msg){
         JOptionPane.showMessageDialog(null, msg, "Loguin", JOptionPane.WARNING_MESSAGE);

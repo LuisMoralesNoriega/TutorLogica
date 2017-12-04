@@ -244,10 +244,17 @@ public class Registro extends javax.swing.JFrame {
         if(tmp.equals("Estudiante")){
             tipo = "2";
         }else{
-            tipo = "1";
+            String respuesta = JOptionPane.showInputDialog("Contraseña de Tutor");
+            if(respuesta.equals("1234")){
+                tipo = "1";
+            }else{
+                this.Alerta("Contraseña de Tutor Incorrecta");
+                return;
+            }            
         }        
         
         nuevo.add(new Usuario(pnom,pcon,tipo,"0","0"));
+        this.Alerta("Registrado Correctamente");
         StringWriter out = new StringWriter();
         
         try {
