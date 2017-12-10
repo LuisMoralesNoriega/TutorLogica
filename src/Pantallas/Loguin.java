@@ -6,8 +6,11 @@
 package Pantallas;
 
 import Acciones.Archivo;
+import Acciones.Compartidas;
 import Entidades.Usuario;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -21,9 +24,11 @@ public class Loguin extends javax.swing.JFrame {
     /**
      * Creates new form Loguin
      */
+   
     public Loguin() {
         initComponents();
-        this.a = new Archivo();
+        this.a = new Archivo();        
+        this.Estilo(this.a.ObtenerEstilo());
     }
 
     /**
@@ -186,12 +191,14 @@ public class Loguin extends javax.swing.JFrame {
             if(tipo.equals("1")){
                 Administrador admin = new Administrador();
                 admin.setLocationRelativeTo(null);
-                admin.setVisible(true);            
+                admin.setVisible(true);   
+                Compartidas.admin = true;
                 this.dispose();
             }else if (tipo.equals("2")){
                 General gen = new General();
                 gen.setLocationRelativeTo(null);
                 gen.setVisible(true);
+                Compartidas.admin = false;
                 this.dispose();
             }           
         }else{
@@ -203,11 +210,112 @@ public class Loguin extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     
-      //Metodo para alertas del programa
+     // <editor-fold desc="Codigo para Login">
+    
+    //Metodo para alertas del programa
     public void Alerta(String msg){
         JOptionPane.showMessageDialog(null, msg, "Loguin", JOptionPane.WARNING_MESSAGE);
     }
     
+    
+    public void Estilo(int stilo){
+    
+        switch(stilo){
+            
+            case 1: 
+                // Noire
+                try {
+                    UIManager.setLookAndFeel("com.jtattoo.plaf.noire.NoireLookAndFeel");
+                    SwingUtilities.updateComponentTreeUI(this);
+                } catch (Exception e) {
+                }
+                break;
+            
+            case 2:
+                // Acryl:
+                try {
+                    UIManager.setLookAndFeel("com.jtattoo.plaf.acryl.AcrylLookAndFeel");
+                    SwingUtilities.updateComponentTreeUI(this);
+                } catch (Exception e) {
+                }
+                break;
+                           
+            case 3:
+                // aereo:
+                try {
+                    UIManager.setLookAndFeel("com.jtattoo.plaf.aero.AeroLookAndFeel");
+                    SwingUtilities.updateComponentTreeUI(this);
+                } catch (Exception e) {
+                }
+                break;
+                
+            case 4:
+                // Aluminium:
+                try {
+                    UIManager.setLookAndFeel("com.jtattoo.plaf.aluminium.AluminiumLookAndFeel");
+                    SwingUtilities.updateComponentTreeUI(this);
+                } catch (Exception e) {
+                }
+                break;
+                
+                
+            case 5:
+                // Fast:
+                try {
+                    UIManager.setLookAndFeel("com.jtattoo.plaf.fast.FastLookAndFeel");
+                    SwingUtilities.updateComponentTreeUI(this);
+                } catch (Exception e) {
+                }
+                break;    
+                
+                
+            case 6:
+                // Hifi:
+                try {
+                    UIManager.setLookAndFeel("com.jtattoo.plaf.hifi.HiFiLookAndFeel");
+                    SwingUtilities.updateComponentTreeUI(this);
+                } catch (Exception e) {
+                }                
+                break;    
+                
+            case 7:
+                // Luna:
+                try {
+                    UIManager.setLookAndFeel("com.jtattoo.plaf.luna.LunaLookAndFeel");
+                    SwingUtilities.updateComponentTreeUI(this);
+                } catch (Exception e) {
+                }
+                break;   
+             
+                
+            case 8:
+                // Mint:
+                try {
+                    UIManager.setLookAndFeel("com.jtattoo.plaf.mint.MintLookAndFeel");
+                    SwingUtilities.updateComponentTreeUI(this);
+                } catch (Exception e) {
+                }             
+                break;                
+                
+            case 9:
+                // Texture:
+                try {
+                    UIManager.setLookAndFeel("com.jtattoo.plaf.texture.TextureLookAndFeel");
+                    SwingUtilities.updateComponentTreeUI(this);
+                } catch (Exception e) {
+                } 
+                break;   
+                
+            default:
+                System.out.println("No tiene ningun estilo");
+                break;
+                
+        
+        }
+    
+    }
+    
+    // </editor-fold>
     
     /**
      * @param args the command line arguments

@@ -11,9 +11,16 @@ package Acciones;
  */
 public class Jsons implements java.io.Serializable {
     
+    public int estilo;
     public String usuario;
 
+    public Jsons(){
+        this.estilo = 0;
+        this.usuario = "";
+    }
+    
     public Jsons(String usuario) {
+        this.estilo = 0;
         this.usuario = usuario;
     }   
     

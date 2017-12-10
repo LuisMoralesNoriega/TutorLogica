@@ -22,7 +22,8 @@ public class Usuario implements JSONStreamAware{
     public String tipo; // 1 para adiminstrador 2 para estudiante
     public String nota;
     public String progreso;
-
+    
+    // Constructor de la calse
     public Usuario(String nombre, String contrasenia, String tipo ,String nota, String progreso) {
         this.nombre = nombre;
         this.contrasenia = contrasenia;
@@ -71,7 +72,7 @@ public class Usuario implements JSONStreamAware{
         this.progreso = progreso;
     }   
     
-    
+    //Metodo para crear un objeto json
     @Override
     public void writeJSONString(Writer out) throws IOException {
         LinkedHashMap obj = new LinkedHashMap();
