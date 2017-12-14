@@ -152,7 +152,7 @@ public class Loguin extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        // Boton de Regitro:
        Registro reg = new Registro();
        reg.setLocationRelativeTo(null);
        reg.setVisible(true);
@@ -163,7 +163,7 @@ public class Loguin extends javax.swing.JFrame {
         // Boton INICIAS SESION:
         
         String nombre = this.jTextField1.getText();
-        String contra = this.jPasswordField1.getText();
+        String contra = this.jPasswordField1.getText();        
         String tipo = "";
         
         JSONArray arrayUsuarios = this.a.arrayUsers();
@@ -193,12 +193,16 @@ public class Loguin extends javax.swing.JFrame {
                 admin.setLocationRelativeTo(null);
                 admin.setVisible(true);   
                 Compartidas.admin = true;
+                Compartidas.usuario = nombre;
+                Compartidas.contra = contra;
                 this.dispose();
             }else if (tipo.equals("2")){
                 General gen = new General();
                 gen.setLocationRelativeTo(null);
                 gen.setVisible(true);
                 Compartidas.admin = false;
+                Compartidas.usuario = nombre;
+                Compartidas.contra = contra;
                 this.dispose();
             }           
         }else{

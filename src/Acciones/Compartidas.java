@@ -12,5 +12,9 @@ package Acciones;
 public class Compartidas {
     
     public static boolean admin = false;
+    public static String curso = "";
+    public static String codigo_curso = "";
+    public static String usuario = "";
+    public static String contra = "";
     
 }

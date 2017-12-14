@@ -19,14 +19,16 @@ public class Usuario implements JSONStreamAware{
     
     public String nombre;
     public String contrasenia;
+    public String codCurso;   
     public String tipo; // 1 para adiminstrador 2 para estudiante
     public String nota;
     public String progreso;
     
     // Constructor de la calse
-    public Usuario(String nombre, String contrasenia, String tipo ,String nota, String progreso) {
+    public Usuario(String nombre, String contrasenia, String codCurso ,String tipo ,String nota, String progreso) {
         this.nombre = nombre;
         this.contrasenia = contrasenia;
+        this.codCurso = codCurso;
         this.tipo = tipo;
         this.nota = nota;
         this.progreso = progreso;
@@ -48,6 +50,14 @@ public class Usuario implements JSONStreamAware{
         this.contrasenia = contrasenia;
     }
 
+    public String getCodCurso() {
+        return codCurso;
+    }
+
+    public void setCodCurso(String codCurso) {
+        this.codCurso = codCurso;
+    }    
+    
     public String getTipo() {
         return tipo;
     }
@@ -78,6 +88,7 @@ public class Usuario implements JSONStreamAware{
         LinkedHashMap obj = new LinkedHashMap();
         obj.put("nom", this.nombre);
         obj.put("con", this.contrasenia);
+        obj.put("codc", this.codCurso);
         obj.put("tipo", this.tipo);
         obj.put("not", this.nota);
         obj.put("pro", this.progreso);

@@ -179,7 +179,7 @@ public class Registro extends javax.swing.JFrame {
     }//GEN-LAST:event_jtxNomActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        // Boton de Registro:
         String nom = this.jtxNom.getText();
         String con = this.jtxtCon1.getText();
         String con1 = this.jtxtCon2.getText();
@@ -214,6 +214,8 @@ public class Registro extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    // <editor-fold desc="Codigo de Registro>
+    
     //Metodo para alertas del programa
     public void Alerta(String msg){
         JOptionPane.showMessageDialog(null, msg, "Registro", JOptionPane.WARNING_MESSAGE);
@@ -232,10 +234,11 @@ public class Registro extends javax.swing.JFrame {
                 JSONObject user = (JSONObject) arr.get(i);
                 String nom = user.get("nom").toString();
                 String con = user.get("con").toString();
+                String cod = user.get("codc").toString();
                 String tip = user.get("tipo").toString();
                 String not = user.get("not").toString();
                 String pro = user.get("pro").toString();
-                nuevo.add(new Usuario(nom,con,tip,not,pro));            
+                nuevo.add(new Usuario(nom,con,cod,tip,not,pro));            
             }
         }
         
@@ -245,7 +248,7 @@ public class Registro extends javax.swing.JFrame {
             tipo = "2";
         }else{
             String respuesta = JOptionPane.showInputDialog("Contraseña de Tutor");
-            if(respuesta.equals("1234")){
+            if(respuesta.equals("1234")){ // Contraseña para poder crear usuario de administrador
                 tipo = "1";
             }else{
                 this.Alerta("Contraseña de Tutor Incorrecta");
@@ -253,7 +256,7 @@ public class Registro extends javax.swing.JFrame {
             }            
         }        
         
-        nuevo.add(new Usuario(pnom,pcon,tipo,"0","0"));
+        nuevo.add(new Usuario(pnom,pcon,"0",tipo,"0","0"));
         this.Alerta("Registrado Correctamente");
         StringWriter out = new StringWriter();
         
@@ -263,12 +266,15 @@ public class Registro extends javax.swing.JFrame {
             ex.printStackTrace();
         }       
         
-        this.a.EscribirBinario(out.toString());
+        this.a.EscribirUsuarios(out.toString());
         System.out.println(out);
         this.dispose();
     }
         
        
+    // </editor-fold>
+    
+    
     /**
      * @param args the command line arguments
      */

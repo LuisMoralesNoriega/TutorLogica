@@ -6,10 +6,20 @@
 package Pantallas;
 
 import Acciones.Archivo;
+import Acciones.Compartidas;
+import Entidades.Curso;
 import com.sun.org.apache.bcel.internal.generic.AALOAD;
+import java.io.IOException;
+import java.io.StringWriter;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javax.swing.JOptionPane;
+import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import javax.swing.event.ChangeEvent;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -25,7 +35,9 @@ public class Configuraciones extends javax.swing.JFrame {
     public Configuraciones() {
         initComponents();
         this.estilo = 0;
-        this.ar = new Archivo();        
+        this.ar = new Archivo();
+       // this.ar.CrearCurso(); //Metodo utilizado solo para crear un nuevo curso
+        this.ar.ObtenerCurso();
     }
 
     /**
@@ -54,6 +66,16 @@ public class Configuraciones extends javax.swing.JFrame {
         jRadioButton9 = new javax.swing.JRadioButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
+        jLAdmin = new javax.swing.JLabel();
+        jLContraA = new javax.swing.JLabel();
+        jLCodc = new javax.swing.JLabel();
+        jLNomC = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -65,6 +87,11 @@ public class Configuraciones extends javax.swing.JFrame {
         setTitle("Configuraciones");
 
         jTabbedPane1.setFont(new java.awt.Font("Comic Sans MS", 1, 11)); // NOI18N
+        jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabbedPane1MouseClicked(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
@@ -223,21 +250,109 @@ public class Configuraciones extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
         jLabel5.setText("Datos Generales");
 
+        jLabel7.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
+        jLabel7.setText("Codigo: ");
+
+        jLabel8.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
+        jLabel8.setText("Nombre del Curso: ");
+
+        jLabel9.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
+        jLabel9.setText("Administrador: ");
+
+        jLabel10.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
+        jLabel10.setText("Actualizar Perfil");
+
+        jButton3.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/actualizar.png"))); // NOI18N
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jLabel11.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
+        jLabel11.setText("Contraseña: ");
+
+        jLAdmin.setFont(new java.awt.Font("Comic Sans MS", 2, 14)); // NOI18N
+        jLAdmin.setForeground(new java.awt.Color(0, 0, 255));
+        jLAdmin.setText(".....");
+
+        jLContraA.setFont(new java.awt.Font("Comic Sans MS", 2, 14)); // NOI18N
+        jLContraA.setForeground(new java.awt.Color(0, 0, 255));
+        jLContraA.setText(".....");
+
+        jLCodc.setFont(new java.awt.Font("Comic Sans MS", 2, 14)); // NOI18N
+        jLCodc.setForeground(new java.awt.Color(0, 0, 255));
+        jLCodc.setText(".....");
+
+        jLNomC.setFont(new java.awt.Font("Comic Sans MS", 2, 14)); // NOI18N
+        jLNomC.setForeground(new java.awt.Color(0, 0, 255));
+        jLNomC.setText(".....");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(176, 176, 176)
-                .addComponent(jLabel5)
-                .addContainerGap(208, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(176, 176, 176)
+                        .addComponent(jLabel5))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel8))
+                        .addGap(36, 36, 36)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLContraA)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLCodc)
+                                    .addComponent(jLAdmin)
+                                    .addComponent(jLNomC))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 195, Short.MAX_VALUE)
+                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(41, 41, 41))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel10)
+                .addGap(27, 27, 27))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel5)
-                .addContainerGap(170, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addComponent(jButton3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel10)
+                        .addContainerGap(48, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLNomC)
+                            .addComponent(jLabel8))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(jLCodc))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel9)
+                            .addComponent(jLAdmin))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel11)
+                            .addComponent(jLContraA))
+                        .addGap(43, 43, 43))))
         );
 
         jTabbedPane1.addTab("Curso", jPanel2);
@@ -403,6 +518,27 @@ public class Configuraciones extends javax.swing.JFrame {
         this.estilo = 9; 
     }//GEN-LAST:event_jRadioButton9ActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // Actualizar Perfil:
+        ActualizaPerfil ac = new ActualizaPerfil();
+        ac.setLocationRelativeTo(null);
+        ac.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
+        // evento para poner credenciales:
+        if( jTabbedPane1.getSelectedIndex() == 1){
+            this.ar.ObtenerCurso();
+            this.jLNomC.setText(Compartidas.curso);
+            this.jLCodc.setText(Compartidas.codigo_curso);
+            this.jLAdmin.setText(Compartidas.usuario);
+            this.jLContraA.setText(Compartidas.contra);
+        }        
+    }//GEN-LAST:event_jTabbedPane1MouseClicked
+
+   
+    
     /**
      * @param args the command line arguments
      */
@@ -436,15 +572,29 @@ public class Configuraciones extends javax.swing.JFrame {
                 new Configuraciones().setVisible(true);
             }
         });
+        
+        
+        
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup Grupo;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLAdmin;
+    private javax.swing.JLabel jLCodc;
+    private javax.swing.JLabel jLContraA;
+    private javax.swing.JLabel jLNomC;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
