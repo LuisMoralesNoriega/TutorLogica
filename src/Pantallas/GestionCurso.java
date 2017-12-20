@@ -5,17 +5,39 @@
  */
 package Pantallas;
 
+import Acciones.Archivo;
+import Acciones.Compartidas;
+import Entidades.Unidad;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.util.ArrayList;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 /**
  *
  * @author Koko
  */
 public class GestionCurso extends javax.swing.JFrame {
 
+    public ArrayList<JRadioButton> Botones;
+    public int indice;
+    public Archivo a;
+    
     /**
      * Creates new form GestionCurso
      */
     public GestionCurso() {
         initComponents();
+        this.Botones = new ArrayList<>();
+        this.a = new Archivo();
+        this.MostrarUnidades();
     }
 
     /**
@@ -27,6 +49,7 @@ public class GestionCurso extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        GUnidades = new javax.swing.ButtonGroup();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
@@ -35,8 +58,16 @@ public class GestionCurso extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jButton5 = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel2.setFont(new java.awt.Font("Comic Sans MS", 1, 36)); // NOI18N
         jLabel2.setText("Bienvenido");
@@ -45,7 +76,7 @@ public class GestionCurso extends javax.swing.JFrame {
         jLabel4.setText("Modulo Administrador");
 
         jButton2.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/config.png"))); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/add.png"))); // NOI18N
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -53,7 +84,7 @@ public class GestionCurso extends javax.swing.JFrame {
         });
 
         jButton3.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Gestion.png"))); // NOI18N
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/editar.png"))); // NOI18N
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -61,7 +92,7 @@ public class GestionCurso extends javax.swing.JFrame {
         });
 
         jButton4.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ver.png"))); // NOI18N
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/eliminar.png"))); // NOI18N
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -69,90 +100,223 @@ public class GestionCurso extends javax.swing.JFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
-        jLabel1.setText("Configuraciones");
+        jLabel1.setText("Agregar Unidad");
 
         jLabel5.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
-        jLabel5.setText("Gestion de Curso");
+        jLabel5.setText("Editar unidad");
 
         jLabel3.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
-        jLabel3.setText("Ver Curso");
+        jLabel3.setText("Eliminar Unidad");
+
+        jButton5.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ver1.png"))); // NOI18N
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
+        jLabel6.setText("Ver Curso");
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Unidades", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Comic Sans MS", 2, 11))); // NOI18N
+        jPanel1.setLayout(new java.awt.GridLayout(0, 1));
+
+        jMenuBar1.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
+
+        jMenu1.setText("Archivo");
+        jMenu1.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
+
+        jMenuItem1.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
+        jMenuItem1.setText("Regresar");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Acerca de");
+        jMenu2.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
+
+        jMenuItem2.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
+        jMenuItem2.setText("Creditos");
+        jMenu2.add(jMenuItem2);
+
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
-                .addComponent(jLabel5)
-                .addGap(101, 101, 101)
-                .addComponent(jLabel3)
-                .addGap(23, 23, 23))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jButton2)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton3)
-                            .addGap(21, 21, 21)
-                            .addComponent(jButton4))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel4))
-                            .addGap(154, 154, 154)))
-                    .addContainerGap()))
+                            .addComponent(jButton2)
+                            .addComponent(jLabel5))
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton4)
+                    .addComponent(jLabel3)
+                    .addComponent(jButton5)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel6)))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(155, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(133, 133, 133))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(291, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel5))
-                .addGap(22, 22, 22))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(24, 24, 24)
-                    .addComponent(jLabel2)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jLabel4)
-                    .addGap(32, 32, 32)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING))
-                    .addContainerGap(58, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel4)
+                        .addGap(33, 33, 33)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton2)
+                            .addComponent(jButton4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton3))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton5))))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(19, 19, 19))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // Boton Para Condiguraciones
-        Configuraciones conf = new Configuraciones();
-        conf.setLocationRelativeTo(null);
-        conf.setVisible(true);
+        // Boton Agregar Unidad
+        AgregarUnidad uni = new AgregarUnidad();
+        uni.setLocationRelativeTo(null);
+        uni.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // Boton Para Gestion de Cursos
+        // Boton Para Edintar Unidad
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // Boton Para Modulo de ver curso
-        General gen = new General();
-        gen.setLocationRelativeTo(null);
-        gen.setVisible(true);
-        this.dispose();
+        // Boton Para Eliminar unidad   
+        for(JRadioButton tmp: Botones){
+            if(tmp.isSelected()){
+                String nom = tmp.getText();
+                char num = nom.charAt(0);
+                this.EliminarUnidad(Character.toString(num));
+            }
+        }
+        this.MostrarUnidades();
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // Boton Regresar a Administrador:
+        Administrador ad = new Administrador();
+        ad.setLocationRelativeTo(null);
+        ad.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // Boton Para Ver Curso:
+        
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    
+    public void Alerta(String msg){
+        JOptionPane.showMessageDialog(null, msg, "Registro", JOptionPane.WARNING_MESSAGE);
+    }
+    
+    public void MostrarUnidades(){ 
+        
+        this.jPanel1.removeAll();
+        
+        JSONArray arrayUnidades = this.a.arrayUnidades();
+        
+         if(arrayUnidades != null){
+            JSONArray arr = (JSONArray) arrayUnidades.get(0);
+            for(int i = 0; i < arr.size(); i++){                
+                JSONObject user = (JSONObject) arr.get(i);
+                String nom = user.get("nom").toString();
+                String codu = user.get("codu").toString();    
+                JRadioButton nuevo =  new JRadioButton(codu + ". " + nom);
+                this.GUnidades.add(nuevo);
+                this.Botones.add(nuevo);
+                this.jPanel1.add(nuevo);                                
+            }
+        }
+        this.jPanel1.updateUI();
+    }
+    
+    public void EliminarUnidad(String pnum){
+        
+        JSONArray arrayUnidades = this.a.arrayUnidades();
+        JSONArray nuevo = new JSONArray();
+        
+        if(arrayUnidades != null){
+            JSONArray arr = (JSONArray) arrayUnidades.get(0);
+            for(int i = 0; i < arr.size(); i++){                
+                JSONObject user = (JSONObject) arr.get(i);
+                String nom = user.get("nom").toString();
+                String codu = user.get("codu").toString();                
+                String codc = user.get("codc").toString();
+                String not = user.get("not").toString();
+                String pro = user.get("pro").toString();
+                if(!pnum.equals(codu)){
+                    nuevo.add(new Unidad(nom,codu,codc,not,pro));
+                }else{
+                    this.Alerta("Unidad ELIMINADA!");
+                }                                
+            }
+        }
+        
+        StringWriter out = new StringWriter();
+        
+        try {
+            nuevo.writeJSONString(out);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }       
+        
+        this.a.EscribirUnidades(out.toString());
+        System.out.println(out);        
+        
+    }
+    
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -189,13 +353,22 @@ public class GestionCurso extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup GUnidades;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

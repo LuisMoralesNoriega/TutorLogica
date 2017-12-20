@@ -99,6 +99,7 @@ public class Configuraciones extends javax.swing.JFrame {
         jLabel4.setText("Apariencia");
 
         Grupo.add(jRadioButton1);
+        jRadioButton1.setFont(new java.awt.Font("Comic Sans MS", 2, 12)); // NOI18N
         jRadioButton1.setText("Noire");
         jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -107,6 +108,7 @@ public class Configuraciones extends javax.swing.JFrame {
         });
 
         Grupo.add(jRadioButton2);
+        jRadioButton2.setFont(new java.awt.Font("Comic Sans MS", 2, 12)); // NOI18N
         jRadioButton2.setText("Acryl");
         jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -115,6 +117,7 @@ public class Configuraciones extends javax.swing.JFrame {
         });
 
         Grupo.add(jRadioButton3);
+        jRadioButton3.setFont(new java.awt.Font("Comic Sans MS", 2, 12)); // NOI18N
         jRadioButton3.setText("Aero");
         jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -123,6 +126,7 @@ public class Configuraciones extends javax.swing.JFrame {
         });
 
         Grupo.add(jRadioButton4);
+        jRadioButton4.setFont(new java.awt.Font("Comic Sans MS", 2, 12)); // NOI18N
         jRadioButton4.setText("Aluminiom");
         jRadioButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -142,6 +146,7 @@ public class Configuraciones extends javax.swing.JFrame {
         jLabel6.setText("Guardar");
 
         Grupo.add(jRadioButton5);
+        jRadioButton5.setFont(new java.awt.Font("Comic Sans MS", 2, 12)); // NOI18N
         jRadioButton5.setText("Fast");
         jRadioButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -150,6 +155,7 @@ public class Configuraciones extends javax.swing.JFrame {
         });
 
         Grupo.add(jRadioButton6);
+        jRadioButton6.setFont(new java.awt.Font("Comic Sans MS", 2, 12)); // NOI18N
         jRadioButton6.setText("Hifi");
         jRadioButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -158,6 +164,7 @@ public class Configuraciones extends javax.swing.JFrame {
         });
 
         Grupo.add(jRadioButton7);
+        jRadioButton7.setFont(new java.awt.Font("Comic Sans MS", 2, 12)); // NOI18N
         jRadioButton7.setText("Luna");
         jRadioButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -166,6 +173,7 @@ public class Configuraciones extends javax.swing.JFrame {
         });
 
         Grupo.add(jRadioButton8);
+        jRadioButton8.setFont(new java.awt.Font("Comic Sans MS", 2, 12)); // NOI18N
         jRadioButton8.setText("Mint");
         jRadioButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -174,6 +182,7 @@ public class Configuraciones extends javax.swing.JFrame {
         });
 
         Grupo.add(jRadioButton9);
+        jRadioButton9.setFont(new java.awt.Font("Comic Sans MS", 2, 12)); // NOI18N
         jRadioButton9.setText("Texture");
         jRadioButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -210,7 +219,7 @@ public class Configuraciones extends javax.swing.JFrame {
                                 .addComponent(jRadioButton4)
                                 .addGap(47, 47, 47)
                                 .addComponent(jRadioButton7)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6))
@@ -242,7 +251,7 @@ public class Configuraciones extends javax.swing.JFrame {
                             .addComponent(jRadioButton9)
                             .addComponent(jLabel6)
                             .addComponent(jRadioButton3))))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Aplicacion", jPanel1);

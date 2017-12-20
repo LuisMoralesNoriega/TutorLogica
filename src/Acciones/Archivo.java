@@ -52,15 +52,16 @@ public class Archivo {
     public void Alerta(String msg){
         JOptionPane.showMessageDialog(null, msg, "Loguin", JOptionPane.WARNING_MESSAGE);
     }
-     
+    
     //Metodo para escribir una cadena dentro del archivo binario
     public void EscribirUsuarios(String usuario){        
         ObjectOutputStream salida = null;
         try{
             String cursos = this.ObtenerCursos();
             int estilo = this.ObtenerEstilo();
+            String unidades = this.ObtenerUnidades();
             salida = new ObjectOutputStream(new FileOutputStream(ruta));            
-            salida.writeObject(new Jsons(usuario,cursos,estilo));
+            salida.writeObject(new Jsons(usuario,cursos,estilo,unidades));
             salida.close();
         }catch(FileNotFoundException ex){
             Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
@@ -114,27 +115,7 @@ public class Archivo {
         };
         return "";        
     }
-        
-    //Obtener cursos
-    public String ObtenerCursos(){
-        try{
-            FileInputStream ficheroEntrada = new FileInputStream(ruta);
-            ObjectInputStream objetoEntrada = new ObjectInputStream(ficheroEntrada);
-            // se leen dos objetos de la clase Persona
-            Jsons p1 = (Jsons)objetoEntrada.readObject();
-            // se cierra el flujo de objetos objetoEntrada
-            objetoEntrada.close();
-            return p1.cursos;
-        }catch (FileNotFoundException e) {
-            System.out.println("¡El fichero no existe!");
-        }catch (IOException e) {
-            System.out.println(e.getMessage());
-        }catch (Exception e) {
-            System.out.println(e.getMessage());
-        };
-        return "";        
-    }
-            
+                
     //Metodo para obtener array de usuarios registrados
     public JSONArray arrayUsers(){        
         try {            
@@ -232,8 +213,9 @@ public class Archivo {
         try{
             String usuarios = this.ObtenerUsuarios();
             int estilo = this.ObtenerEstilo();
+            String unidades = this.ObtenerUnidades();
             salida = new ObjectOutputStream(new FileOutputStream(ruta));            
-            salida.writeObject(new Jsons(usuarios,curso,estilo));
+            salida.writeObject(new Jsons(usuarios,curso,estilo,unidades));
             salida.close();
         }catch(FileNotFoundException ex){
             Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
@@ -266,6 +248,26 @@ public class Archivo {
         return null;
     }  
     
+    //Obtener json de curso
+    public String ObtenerCursos(){
+        try{
+            FileInputStream ficheroEntrada = new FileInputStream(ruta);
+            ObjectInputStream objetoEntrada = new ObjectInputStream(ficheroEntrada);
+            // se leen dos objetos de la clase Persona
+            Jsons p1 = (Jsons)objetoEntrada.readObject();
+            // se cierra el flujo de objetos objetoEntrada
+            objetoEntrada.close();
+            return p1.cursos;
+        }catch (FileNotFoundException e) {
+            System.out.println("¡El fichero no existe!");
+        }catch (IOException e) {
+            System.out.println(e.getMessage());
+        }catch (Exception e) {
+            System.out.println(e.getMessage());
+        };
+        return "";        
+    }
+        
     //Metodo para obtener cursos
     public void ObtenerCurso(){
         
@@ -324,6 +326,75 @@ public class Archivo {
     } 
             
     // </editor-fold>
+    
+    
+    // <editor-fold desc="Codigo para Cursos">
+    
+    //Metodo para escribir una cadena dentro del archivo binario
+    public void EscribirUnidades(String unidades){        
+        ObjectOutputStream salida = null;
+        try{
+            String usuarios = this.ObtenerUsuarios();
+            String cursos = this.ObtenerCursos();
+            int estilo = this.ObtenerEstilo();
+            salida = new ObjectOutputStream(new FileOutputStream(ruta));            
+            salida.writeObject(new Jsons(usuarios,cursos,estilo,unidades));
+            salida.close();
+        }catch(FileNotFoundException ex){
+            Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
+        }catch(IOException ex){
+            Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try{
+                salida.close();
+            }catch(IOException ex){
+                Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }        
+    }
+    
+    //Obtener json de curso
+    public String ObtenerUnidades(){
+        try{
+            FileInputStream ficheroEntrada = new FileInputStream(ruta);
+            ObjectInputStream objetoEntrada = new ObjectInputStream(ficheroEntrada);
+            // se leen dos objetos de la clase Persona
+            Jsons p1 = (Jsons)objetoEntrada.readObject();
+            // se cierra el flujo de objetos objetoEntrada
+            objetoEntrada.close();
+            return p1.unidades;
+        }catch (FileNotFoundException e) {
+            System.out.println("¡El fichero no existe!");
+        }catch (IOException e) {
+            System.out.println(e.getMessage());
+        }catch (Exception e) {
+            System.out.println(e.getMessage());
+        };
+        return "";        
+    }
+    
+    //Metodo para obtener array de cursos registrados    
+    public JSONArray arrayUnidades(){        
+        try {            
+            JSONParser parser = new JSONParser();
+            String cursos = this.ObtenerUnidades();
+            if(cursos.equals("") || (cursos == null)){
+                return null;
+            }
+            Object obj  = parser.parse(this.ObtenerUnidades());            
+            JSONArray array = new JSONArray();
+            array.add(obj);
+            return array;              
+        } catch (ParseException ex) {
+            Logger.getLogger(Registro.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+        return null;
+    }  
+    
+    
+    // </editor-fold>
+    
+    
     
     
 }
