@@ -140,32 +140,15 @@ public class Archivo {
     // <editor-fold desc="Codigo Configuracion de Estilo">
     
     //Metodo para escribir una cadena dentro del archivo binario
-    public void EscribirEstilo(int pestilo){        
-        //objeto json nuevo
-        Jsons nuevo = new Jsons();
-        nuevo.estilo = pestilo;
-        //obtenemos el objeto
-        try{
-            FileInputStream ficheroEntrada = new FileInputStream(ruta);
-            ObjectInputStream objetoEntrada = new ObjectInputStream(ficheroEntrada);
-            // se leen dos objetos de la clase Persona
-            Jsons p1 = (Jsons)objetoEntrada.readObject();
-            // se cierra el flujo de objetos objetoEntrada
-            nuevo.usuario = p1.usuario;
-        }catch (FileNotFoundException e) {
-            System.out.println("¡El fichero no existe!");
-        }catch (IOException e) {
-            System.out.println(e.getMessage());
-        }catch (Exception e) {
-            System.out.println(e.getMessage());
-        };        
-        
-        
+    public void EscribirEstilo(int pestilo){     
         //Guardamos el nuevo json
         ObjectOutputStream salida = null;
         try{
+            String usuarios = this.ObtenerUsuarios();
+            String cursos = this.ObtenerCursos();
+            String unidades = this.ObtenerUnidades();
             salida = new ObjectOutputStream(new FileOutputStream(ruta));     
-            salida.writeObject(nuevo);
+            salida.writeObject(new Jsons(usuarios,cursos,pestilo,unidades));
             salida.close();
         }catch(FileNotFoundException ex){
             Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
@@ -328,7 +311,7 @@ public class Archivo {
     // </editor-fold>
     
     
-    // <editor-fold desc="Codigo para Cursos">
+    // <editor-fold desc="Codigo para Unidades">
     
     //Metodo para escribir una cadena dentro del archivo binario
     public void EscribirUnidades(String unidades){        

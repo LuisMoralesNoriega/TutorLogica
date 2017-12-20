@@ -162,11 +162,31 @@ public class AgregarUnidad extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jtxNomActionPerformed
 
+    boolean insertado = false;
+    
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // Boton de Guardar Unidad:
         
         String nombre = jtxNom.getText();
         String num = jtxNum.getText();
+        
+        if(nombre.equals("")){
+            this.Alerta("Debe Ingresar un Nombre de Unidad");  
+            return;
+        }else if(num.equals("")){
+            this.Alerta("Debe Ingresar un Numero de Unidad");
+            return;
+        }
+        
+        
+        try {
+            int temp = Integer.parseInt(num);
+        } catch (Exception e) {
+            this.Alerta("Ingrese un numero Entero en el campo No. Unidad");
+            this.jtxNum.setText("");
+            return;
+        }
+        
         
         JSONArray arrayUnidades = this.a.arrayUnidades();
         JSONArray nuevo = new JSONArray();
@@ -202,9 +222,15 @@ public class AgregarUnidad extends javax.swing.JFrame {
                 if(!num.equals(codu)){                        
                     int n = Integer.parseInt(num);
                     
-                    if( cod < n && n < nsig ){
+                    if(n < cod && !insertado){
+                        nuevo.add(new Unidad(nombre,num,Compartidas.codigo_curso,"0","0"));
+                        nuevo.add(new Unidad(nom,codu,codc,not,pro));
+                        insertado = true;
+                        entro = true;
+                    }else if( cod < n && n < nsig ){
                         nuevo.add(new Unidad(nom,codu,codc,not,pro));
                         nuevo.add(new Unidad(nombre,num,Compartidas.codigo_curso,"0","0"));
+                        insertado = true;
                         entro = true;
                     }else{
                         nuevo.add(new Unidad(nom,codu,codc,not,pro));
