@@ -7,8 +7,13 @@ package Pantallas;
 
 import Acciones.Archivo;
 import Acciones.Compartidas;
+import Entidades.Tema;
+import Entidades.Unidad;
 import java.awt.Dimension;
+import java.io.IOException;
+import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import org.json.simple.JSONArray;
@@ -305,6 +310,16 @@ public class EdicionUnidad extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // Boton Eliminar Tema:
+        for(JRadioButton tmp: Botones){
+            if(tmp.isSelected()){
+                String nom = tmp.getText();                
+                String[] num = nom.split(Pattern.quote("."));                
+                this.EliminarTema(num[0]);
+            }
+        }
+        this.MostrarTemas();
+        
+        
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -316,9 +331,10 @@ public class EdicionUnidad extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // Boton Guardar Tema:
+        // Boton Guardar Nombre de unidad:
+        String nombre = jtxNom.getText();    
+        this.GuardarNombredeUnidad(nombre);                
     }//GEN-LAST:event_jButton6ActionPerformed
-
     
     public void Alerta(String msg){
         JOptionPane.showMessageDialog(null, msg, "Edicion de Unidad", JOptionPane.WARNING_MESSAGE);
@@ -327,7 +343,7 @@ public class EdicionUnidad extends javax.swing.JFrame {
     public void ObetenerUnidad(){
         this.arrayUnidades = this.a.arrayUnidades();
         
-         if(arrayUnidades != null){
+        if(arrayUnidades != null){
             JSONArray arr = (JSONArray) arrayUnidades.get(0);
             for(int i = 0; i < arr.size(); i++){                
                 JSONObject user = (JSONObject) arr.get(i);
@@ -356,20 +372,96 @@ public class EdicionUnidad extends javax.swing.JFrame {
             JSONArray arr = (JSONArray) arrayTemas.get(0);
             for(int i = 0; i < arr.size(); i++){                
                 JSONObject user = (JSONObject) arr.get(i);
-                String nom = user.get("nom").toString();
-                String codt = user.get("codt").toString();    
-                JRadioButton nuevo =  new JRadioButton(codt + ". " + nom);
-                this.GTemas.add(nuevo);
-                this.Botones.add(nuevo);
-                this.JPanelTemas.add(nuevo);                                
+                String codu = user.get("codu").toString();
+                if(codu.equals(Compartidas.codigo_unidad)){
+                    String nom = user.get("nom").toString();
+                    String codt = user.get("codt").toString();    
+                    JRadioButton nuevo =  new JRadioButton(codt + ". " + nom);
+                    this.GTemas.add(nuevo);
+                    this.Botones.add(nuevo);
+                    this.JPanelTemas.add(nuevo);  
+                }
             }
         }
         this.JPanelTemas.updateUI();
     }
     
+    public void EliminarTema(String pnum){
+        
+        JSONArray arrayTemas = this.a.arrayTemas();
+        JSONArray nuevo = new JSONArray();
+        
+        if(arrayTemas != null){
+            JSONArray arr = (JSONArray) arrayTemas.get(0);
+            for(int i = 0; i < arr.size(); i++){                
+                JSONObject user = (JSONObject) arr.get(i);
+                String nom = user.get("nom").toString();
+                String codt = user.get("codt").toString();                
+                String codu = user.get("codu").toString();
+                String con = user.get("con").toString(); 
+                
+                if(codu.equals(Compartidas.codigo_unidad)){
+                    if(!pnum.equals(codt)){
+                        nuevo.add(new Tema(nom,codt,codu,con));
+                    }else{
+                        this.Alerta("Unidad ELIMINADA!");
+                    } 
+                }else{
+                    nuevo.add(new Tema(nom,codt,codu,con));
+                }                             
+            }
+        }
+        
+        StringWriter out = new StringWriter();
+        
+        try {
+            nuevo.writeJSONString(out);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }       
+        
+        this.a.EscribirTemas(out.toString());
+        System.out.println(out);        
+        
+    }
     
-    
-    
+    public void GuardarNombredeUnidad(String pnom){
+        
+        JSONArray nuevo = new JSONArray();
+        
+        if(arrayUnidades != null){
+            JSONArray arr = (JSONArray) arrayUnidades.get(0);
+            for(int i = 0; i < arr.size(); i++){                
+                JSONObject user = (JSONObject) arr.get(i);
+                String nom = user.get("nom").toString();
+                String codu = user.get("codu").toString();                
+                String codc = user.get("codc").toString();
+                String not = user.get("not").toString();
+                String pro = user.get("pro").toString();    
+                if(codu.equals(Compartidas.codigo_unidad)){
+                    nuevo.add(new Unidad(pnom,codu,codc,not,pro));
+                    this.jtxNom.setText(pnom);
+                    this.Alerta("Unidad Modificada Correctamente!!!!");
+                }else{
+                    nuevo.add(new Unidad(nom,codu,codc,not,pro));
+                }
+            }
+        }
+        
+        StringWriter out = new StringWriter();
+        
+        try {
+            nuevo.writeJSONString(out);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }       
+        
+        this.a.EscribirUnidades(out.toString());
+        System.out.println(out); 
+        
+                
+        
+    }
     
     
     /**

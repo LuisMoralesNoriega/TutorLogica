@@ -213,27 +213,35 @@ public class AgregarTema extends javax.swing.JFrame {
                 
                 int cod = Integer.parseInt(codt); 
                 
-                if(!num.equals(codt)){                        
-                    int n = Integer.parseInt(num);
-                    
-                    if(n < cod && !insertado){
-                        nuevo.add(new Tema(nombre,num,Compartidas.codigo_unidad,""));
-                        nuevo.add(new Tema(nombre,num,codu,con));
-                        insertado = true;
-                        entro = true;
-                    }else if( cod < n && n < nsig ){
-                        nuevo.add(new Tema(nombre,num,codu,con));
-                        nuevo.add(new Tema(nombre,num,Compartidas.codigo_unidad,""));
-                        insertado = true;
-                        entro = true;
+                if(codu.equals(Compartidas.codigo_unidad)){
+                    if(!num.equals(codt)){                        
+                        int n = Integer.parseInt(num);
+
+                        if(n < cod && !insertado){
+                            nuevo.add(new Tema(nombre,num,Compartidas.codigo_unidad,""));
+                            nuevo.add(new Tema(nom,codt,codu,con));
+                            insertado = true;
+                            entro = true;
+                        }else if( cod < n && n < nsig ){
+                            nuevo.add(new Tema(nom,codt,codu,con));
+                            nuevo.add(new Tema(nombre,num,Compartidas.codigo_unidad,""));
+                            insertado = true;
+                            entro = true;
+                        }else{
+                            nuevo.add(new Tema(nom,codt,codu,con));
+                        }
+
                     }else{
-                        nuevo.add(new Tema(nombre,num,codu,con));
+                        this.Alerta("El Tema ya EXISTE!!");
+                        return;
                     }
-                    
+                
                 }else{
-                    this.Alerta("El Tema ya EXISTE!!");
-                    return;
-                }                                
+                    nuevo.add(new Tema(nom,codt,codu,con));                
+                }
+                
+                
+                                                
             }
         }
         
@@ -253,11 +261,11 @@ public class AgregarTema extends javax.swing.JFrame {
         this.a.EscribirTemas(out.toString());
         System.out.println("TEMAS: " + out);
         
-        
-        GestionCurso cu = new GestionCurso();
-        cu.setLocationRelativeTo(null);
-        cu.setVisible(true);
+        EdicionUnidad eu = new EdicionUnidad();
+        eu.setLocationRelativeTo(null);
+        eu.setVisible(true);
         this.dispose();
+        
         
        
     }//GEN-LAST:event_jButton2ActionPerformed

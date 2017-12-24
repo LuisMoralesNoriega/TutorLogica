@@ -13,6 +13,7 @@ import java.awt.GridLayout;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -258,9 +259,9 @@ public class GestionCurso extends javax.swing.JFrame {
         // Boton Para Eliminar unidad   
         for(JRadioButton tmp: Botones){
             if(tmp.isSelected()){
-                String nom = tmp.getText();
-                char num = nom.charAt(0);
-                this.EliminarUnidad(Character.toString(num));
+                String nom = tmp.getText();                
+                String[] num = nom.split(Pattern.quote("."));                
+                this.EliminarUnidad(num[0]);
             }
         }
         this.MostrarUnidades();
@@ -345,6 +346,9 @@ public class GestionCurso extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
+    
+    
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
