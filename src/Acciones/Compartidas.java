@@ -16,5 +16,6 @@ public class Compartidas {
     public static String codigo_curso = "";
     public static String usuario = "";
     public static String contra = "";
+    public static String codigo_unidad = "";
     
 }

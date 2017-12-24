@@ -60,8 +60,9 @@ public class Archivo {
             String cursos = this.ObtenerCursos();
             int estilo = this.ObtenerEstilo();
             String unidades = this.ObtenerUnidades();
+            String temas = this.ObtenerTemas();
             salida = new ObjectOutputStream(new FileOutputStream(ruta));            
-            salida.writeObject(new Jsons(usuario,cursos,estilo,unidades));
+            salida.writeObject(new Jsons(usuario,cursos,estilo,unidades,temas));
             salida.close();
         }catch(FileNotFoundException ex){
             Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
@@ -147,8 +148,9 @@ public class Archivo {
             String usuarios = this.ObtenerUsuarios();
             String cursos = this.ObtenerCursos();
             String unidades = this.ObtenerUnidades();
+            String temas = this.ObtenerTemas();
             salida = new ObjectOutputStream(new FileOutputStream(ruta));     
-            salida.writeObject(new Jsons(usuarios,cursos,pestilo,unidades));
+            salida.writeObject(new Jsons(usuarios,cursos,pestilo,unidades,temas));
             salida.close();
         }catch(FileNotFoundException ex){
             Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
@@ -197,8 +199,9 @@ public class Archivo {
             String usuarios = this.ObtenerUsuarios();
             int estilo = this.ObtenerEstilo();
             String unidades = this.ObtenerUnidades();
+            String temas = this.ObtenerTemas();
             salida = new ObjectOutputStream(new FileOutputStream(ruta));            
-            salida.writeObject(new Jsons(usuarios,curso,estilo,unidades));
+            salida.writeObject(new Jsons(usuarios,curso,estilo,unidades,temas));
             salida.close();
         }catch(FileNotFoundException ex){
             Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
@@ -320,8 +323,9 @@ public class Archivo {
             String usuarios = this.ObtenerUsuarios();
             String cursos = this.ObtenerCursos();
             int estilo = this.ObtenerEstilo();
+            String temas = this.ObtenerTemas();
             salida = new ObjectOutputStream(new FileOutputStream(ruta));            
-            salida.writeObject(new Jsons(usuarios,cursos,estilo,unidades));
+            salida.writeObject(new Jsons(usuarios,cursos,estilo,unidades,temas));
             salida.close();
         }catch(FileNotFoundException ex){
             Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
@@ -360,11 +364,79 @@ public class Archivo {
     public JSONArray arrayUnidades(){        
         try {            
             JSONParser parser = new JSONParser();
-            String cursos = this.ObtenerUnidades();
-            if(cursos.equals("") || (cursos == null)){
+            String unidades = this.ObtenerUnidades();
+            if(unidades.equals("") || (unidades == null)){
                 return null;
             }
-            Object obj  = parser.parse(this.ObtenerUnidades());            
+            Object obj  = parser.parse(unidades);            
+            JSONArray array = new JSONArray();
+            array.add(obj);
+            return array;              
+        } catch (ParseException ex) {
+            Logger.getLogger(Registro.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+        return null;
+    }  
+        
+         
+    // </editor-fold>
+    
+    
+    // <editor-fold desc="Codigo para Temas">
+    
+    //Metodo para escribir una cadena dentro del archivo binario
+    public void EscribirTemas(String temas){        
+        ObjectOutputStream salida = null;
+        try{
+            String usuarios = this.ObtenerUsuarios();
+            String cursos = this.ObtenerCursos();
+            int estilo = this.ObtenerEstilo();
+            String unidades = this.ObtenerUnidades();
+            salida = new ObjectOutputStream(new FileOutputStream(ruta));            
+            salida.writeObject(new Jsons(usuarios,cursos,estilo,unidades,temas));
+            salida.close();
+        }catch(FileNotFoundException ex){
+            Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
+        }catch(IOException ex){
+            Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try{
+                salida.close();
+            }catch(IOException ex){
+                Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }        
+    }
+    
+    //Obtener json de temas
+    public String ObtenerTemas(){
+        try{
+            FileInputStream ficheroEntrada = new FileInputStream(ruta);
+            ObjectInputStream objetoEntrada = new ObjectInputStream(ficheroEntrada);
+            // se leen dos objetos de la clase Persona
+            Jsons p1 = (Jsons)objetoEntrada.readObject();
+            // se cierra el flujo de objetos objetoEntrada
+            objetoEntrada.close();
+            return p1.temas;
+        }catch (FileNotFoundException e) {
+            System.out.println("¡El fichero no existe!");
+        }catch (IOException e) {
+            System.out.println(e.getMessage());
+        }catch (Exception e) {
+            System.out.println(e.getMessage());
+        };
+        return "";        
+    }
+    
+    //Metodo para obtener array de temas   
+    public JSONArray arrayTemas(){        
+        try {            
+            JSONParser parser = new JSONParser();
+            String temas = this.ObtenerTemas();
+            if(temas.equals("") || (temas == null)){
+                return null;
+            }
+            Object obj  = parser.parse(temas);            
             JSONArray array = new JSONArray();
             array.add(obj);
             return array;              
@@ -376,8 +448,6 @@ public class Archivo {
     
     
     // </editor-fold>
-    
-    
-    
-    
+
+
 }

@@ -60,7 +60,8 @@ public class GestionCurso extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        ScrollUnidades = new javax.swing.JScrollPane();
+        JPanelUnidades = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -73,7 +74,7 @@ public class GestionCurso extends javax.swing.JFrame {
         jLabel2.setText("Bienvenido");
 
         jLabel4.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
-        jLabel4.setText("Modulo Administrador");
+        jLabel4.setText("Gestio de Curso");
 
         jButton2.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/add.png"))); // NOI18N
@@ -119,8 +120,10 @@ public class GestionCurso extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
         jLabel6.setText("Ver Curso");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Unidades", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Comic Sans MS", 2, 11))); // NOI18N
-        jPanel1.setLayout(new java.awt.GridLayout(0, 1));
+        ScrollUnidades.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Unidades", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Comic Sans MS", 1, 12))); // NOI18N
+
+        JPanelUnidades.setLayout(new java.awt.GridLayout(0, 1));
+        ScrollUnidades.setViewportView(JPanelUnidades);
 
         jMenuBar1.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
 
@@ -162,8 +165,8 @@ public class GestionCurso extends javax.swing.JFrame {
                             .addComponent(jButton3)
                             .addComponent(jButton2)
                             .addComponent(jLabel5))
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(ScrollUnidades)))
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton4)
@@ -174,10 +177,12 @@ public class GestionCurso extends javax.swing.JFrame {
                         .addComponent(jLabel6)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(155, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(156, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(31, 31, 31)))
                 .addGap(133, 133, 133))
         );
         layout.setVerticalGroup(
@@ -192,10 +197,10 @@ public class GestionCurso extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(1, 1, 1)
                         .addComponent(jLabel4)
-                        .addGap(33, 33, 33)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGap(38, 38, 38)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton2)
@@ -210,8 +215,8 @@ public class GestionCurso extends javax.swing.JFrame {
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton5))))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(19, 19, 19))
+                    .addComponent(ScrollUnidades, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         pack();
@@ -226,7 +231,27 @@ public class GestionCurso extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // Boton Para Edintar Unidad
+        // Boton Para Editar Unidad
+        
+        boolean selec = false;
+        for(JRadioButton tmp: Botones){
+            if(tmp.isSelected()){
+                String nom = tmp.getText();
+                char num = nom.charAt(0);
+                Compartidas.codigo_unidad = Character.toString(num);
+                EdicionUnidad eu = new EdicionUnidad();
+                eu.setLocationRelativeTo(null);
+                eu.setVisible(true);
+                this.dispose();
+                selec = true;
+            }
+        }
+        
+        if(!selec){
+            this.Alerta("Seleccione una Unidad para poder Editarla");
+        }
+        
+        
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -256,12 +281,12 @@ public class GestionCurso extends javax.swing.JFrame {
 
     
     public void Alerta(String msg){
-        JOptionPane.showMessageDialog(null, msg, "Registro", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(null, msg, "Gestion de Cursos", JOptionPane.WARNING_MESSAGE);
     }
     
     public void MostrarUnidades(){ 
         
-        this.jPanel1.removeAll();
+        this.JPanelUnidades.removeAll();
         
         JSONArray arrayUnidades = this.a.arrayUnidades();
         
@@ -274,10 +299,10 @@ public class GestionCurso extends javax.swing.JFrame {
                 JRadioButton nuevo =  new JRadioButton(codu + ". " + nom);
                 this.GUnidades.add(nuevo);
                 this.Botones.add(nuevo);
-                this.jPanel1.add(nuevo);                                
+                this.JPanelUnidades.add(nuevo);                                
             }
         }
-        this.jPanel1.updateUI();
+        this.JPanelUnidades.updateUI();
     }
     
     public void EliminarUnidad(String pnum){
@@ -293,7 +318,7 @@ public class GestionCurso extends javax.swing.JFrame {
                 String codu = user.get("codu").toString();                
                 String codc = user.get("codc").toString();
                 String not = user.get("not").toString();
-                String pro = user.get("pro").toString();
+                String pro = user.get("pro").toString();  
                 if(!pnum.equals(codu)){
                     nuevo.add(new Unidad(nom,codu,codc,not,pro));
                 }else{
@@ -354,6 +379,8 @@ public class GestionCurso extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup GUnidades;
+    private javax.swing.JPanel JPanelUnidades;
+    private javax.swing.JScrollPane ScrollUnidades;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -369,6 +396,5 @@ public class GestionCurso extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

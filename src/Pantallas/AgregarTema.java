@@ -7,13 +7,9 @@ package Pantallas;
 
 import Acciones.Archivo;
 import Acciones.Compartidas;
-import Entidades.Unidad;
+import Entidades.Tema;
 import java.io.IOException;
 import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 import javax.swing.JOptionPane;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -22,19 +18,17 @@ import org.json.simple.JSONObject;
  *
  * @author Koko
  */
-public class AgregarUnidad extends javax.swing.JFrame {
+public class AgregarTema extends javax.swing.JFrame {
 
     
     Archivo a;
     boolean insertado;
-    
     /**
-     * Creates new form AgregarUnidad
+     * Creates new form AgregarTema
      */
-    public AgregarUnidad() {
+    public AgregarTema() {
         initComponents();
         this.a = new Archivo();
-        this.jLabel4.setText(Compartidas.curso);
         this.insertado = false;
     }
 
@@ -57,10 +51,10 @@ public class AgregarUnidad extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel2.setFont(new java.awt.Font("Comic Sans MS", 1, 36)); // NOI18N
-        jLabel2.setText("Agregar Unidad");
+        jLabel2.setText("Agregar Tema");
 
         jLabel4.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
 
@@ -68,7 +62,7 @@ public class AgregarUnidad extends javax.swing.JFrame {
         jLabel6.setText("Ingrese los Siguientes Datos");
 
         jLabel1.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
-        jLabel1.setText("No. Unidad:");
+        jLabel1.setText("No. Tema:");
 
         jtxNum.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
         jtxNum.addActionListener(new java.awt.event.ActionListener() {
@@ -108,13 +102,13 @@ public class AgregarUnidad extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(96, 96, 96)
+                .addGap(67, 67, 67)
                 .addComponent(jButton2)
-                .addGap(18, 18, 18)
+                .addGap(47, 47, 47)
                 .addComponent(jButton3)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(61, Short.MAX_VALUE)
+                .addContainerGap(57, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel6)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -127,7 +121,7 @@ public class AgregarUnidad extends javax.swing.JFrame {
                         .addComponent(jtxNum, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(38, 38, 38))
+                .addGap(56, 56, 56))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -150,7 +144,7 @@ public class AgregarUnidad extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jButton3))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         pack();
@@ -164,19 +158,17 @@ public class AgregarUnidad extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jtxNomActionPerformed
 
-    
-    
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // Boton de Guardar Unidad:
-        
+        // Boton de Guardar Tema:
+
         String nombre = jtxNom.getText();
         String num = jtxNum.getText();
         
         if(nombre.equals("")){
-            this.Alerta("Debe Ingresar un Nombre de Unidad");  
+            this.Alerta("Debe Ingresar un Nombre de Tema");  
             return;
         }else if(num.equals("")){
-            this.Alerta("Debe Ingresar un Numero de Unidad");
+            this.Alerta("Debe Ingresar un Numero de Tema");
             return;
         }
         
@@ -184,24 +176,23 @@ public class AgregarUnidad extends javax.swing.JFrame {
         try {
             int temp = Integer.parseInt(num);
         } catch (Exception e) {
-            this.Alerta("Ingrese un numero Entero en el campo No. Unidad");
+            this.Alerta("Ingrese un numero Entero en el campo No. Tema");
             this.jtxNum.setText("");
             return;
         }
-        
-        
-        JSONArray arrayUnidades = this.a.arrayUnidades();
+                
+        JSONArray arrayTemas = this.a.arrayTemas();
         JSONArray nuevo = new JSONArray();
         
-        if(arrayUnidades == null){
-            nuevo.add(new Unidad(nombre,num,Compartidas.codigo_curso,"0","0"));  
+        if(arrayTemas == null){
+            nuevo.add(new Tema(nombre,num,Compartidas.codigo_unidad,""));     
             this.insertado = true;
         }
         
         boolean entro = false;
         
-        if(arrayUnidades != null){
-            JSONArray arr = (JSONArray) arrayUnidades.get(0);
+        if(arrayTemas != null){
+            JSONArray arr = (JSONArray) arrayTemas.get(0);
             for(int i = 0; i < arr.size(); i++){                
                 int nsig = 0;
                 JSONObject user = (JSONObject) arr.get(i);
@@ -211,46 +202,46 @@ public class AgregarUnidad extends javax.swing.JFrame {
                 }
                 
                 if(sig != null){
-                    String cods = sig.get("codu").toString();
+                    String cods = sig.get("codt").toString();
                     nsig = Integer.parseInt(cods);
                 }
+                
                 String nom = user.get("nom").toString();
-                String codu = user.get("codu").toString();                
-                String codc = user.get("codc").toString();
-                String not = user.get("not").toString();
-                String pro = user.get("pro").toString();
+                String codt = user.get("codt").toString();                
+                String codu = user.get("codu").toString();
+                String con = user.get("con").toString();
                 
-                int cod = Integer.parseInt(codu); 
+                int cod = Integer.parseInt(codt); 
                 
-                if(!num.equals(codu)){                        
+                if(!num.equals(codt)){                        
                     int n = Integer.parseInt(num);
                     
                     if(n < cod && !insertado){
-                        nuevo.add(new Unidad(nombre,num,Compartidas.codigo_curso,"0","0"));
-                        nuevo.add(new Unidad(nom,codu,codc,not,pro));
+                        nuevo.add(new Tema(nombre,num,Compartidas.codigo_unidad,""));
+                        nuevo.add(new Tema(nombre,num,codu,con));
                         insertado = true;
                         entro = true;
                     }else if( cod < n && n < nsig ){
-                        nuevo.add(new Unidad(nom,codu,codc,not,pro));
-                        nuevo.add(new Unidad(nombre,num,Compartidas.codigo_curso,"0","0"));
+                        nuevo.add(new Tema(nombre,num,codu,con));
+                        nuevo.add(new Tema(nombre,num,Compartidas.codigo_unidad,""));
                         insertado = true;
                         entro = true;
                     }else{
-                        nuevo.add(new Unidad(nom,codu,codc,not,pro));
+                        nuevo.add(new Tema(nombre,num,codu,con));
                     }
                     
                 }else{
-                    this.Alerta("La unidad ya EXISTE!!");
+                    this.Alerta("El Tema ya EXISTE!!");
                     return;
                 }                                
             }
         }
         
         if(!entro && !insertado){
-            nuevo.add(new Unidad(nombre,num,Compartidas.codigo_curso,"0","0"));
+            nuevo.add(new Tema(nombre,num,Compartidas.codigo_unidad,""));
         }
               
-        this.Alerta("Unidad Creada");
+        this.Alerta("Tema Creado");
         StringWriter out = new StringWriter();
         
         try {
@@ -259,30 +250,28 @@ public class AgregarUnidad extends javax.swing.JFrame {
             ex.printStackTrace();
         }       
         
-        this.a.EscribirUnidades(out.toString());
-        System.out.println(out);
+        this.a.EscribirTemas(out.toString());
+        System.out.println("TEMAS: " + out);
         
         
         GestionCurso cu = new GestionCurso();
         cu.setLocationRelativeTo(null);
         cu.setVisible(true);
         this.dispose();
+        
+       
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // Bonton cancelar:
-        
-        
-        GestionCurso cu = new GestionCurso();
-        cu.setLocationRelativeTo(null);
-        cu.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     
     public void Alerta(String msg){
-        JOptionPane.showMessageDialog(null, msg, "Registro", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(null, msg, "Agregar Tema", JOptionPane.WARNING_MESSAGE);
     }
+    
     
     
     /**
@@ -302,20 +291,20 @@ public class AgregarUnidad extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AgregarUnidad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AgregarTema.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AgregarUnidad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AgregarTema.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AgregarUnidad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AgregarTema.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AgregarUnidad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AgregarTema.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AgregarUnidad().setVisible(true);
+                new AgregarTema().setVisible(true);
             }
         });
     }
@@ -331,4 +320,10 @@ public class AgregarUnidad extends javax.swing.JFrame {
     private javax.swing.JTextField jtxNom;
     private javax.swing.JTextField jtxNum;
     // End of variables declaration//GEN-END:variables
+
+    private class a {
+
+        public a() {
+        }
+    }
 }

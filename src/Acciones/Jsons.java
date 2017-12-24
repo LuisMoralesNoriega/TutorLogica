@@ -14,20 +14,23 @@ public class Jsons implements java.io.Serializable {
     public int estilo;
     public String usuario;
     public String cursos;
-    public String unidades;
+    public String unidades;    
+    public String temas;
 
     public Jsons(){
         this.estilo = 0;
         this.usuario = "";
         this.cursos = "";
         this.unidades = "";
+        this.temas = "";
     }
     
-    public Jsons(String usuario, String curso, int estilo, String unidades) {
+    public Jsons(String usuario, String curso, int estilo, String unidades, String temas) {
         this.estilo = estilo;
         this.usuario = usuario;        
         this.cursos = curso;
         this.unidades = unidades;
+        this.temas = temas;
     }   
     
     
