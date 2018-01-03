@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -36,6 +37,8 @@ public class AgregarUnidad extends javax.swing.JFrame {
         this.a = new Archivo();
         this.jLabel4.setText(Compartidas.curso);
         this.insertado = false;
+        this.jLabel2.setHorizontalAlignment(JLabel.CENTER);
+        this.jLabel4.setHorizontalAlignment(JLabel.CENTER);
     }
 
     /**

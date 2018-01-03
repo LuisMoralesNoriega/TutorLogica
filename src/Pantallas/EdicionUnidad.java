@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import org.json.simple.JSONArray;
@@ -40,7 +41,15 @@ public class EdicionUnidad extends javax.swing.JFrame {
         this.a = new Archivo();
         this.arrayUnidades =  new JSONArray();
         this.Botones = new ArrayList<>();
-        this.indice = -1;
+        this.indice = -1;        
+        this.jLabel2.setHorizontalAlignment(JLabel.CENTER);
+        this.jLabel4.setHorizontalAlignment(JLabel.CENTER);
+        this.jLabel7.setHorizontalAlignment(JLabel.CENTER);
+        this.jLabel8.setText(Compartidas.curso);
+        this.jLabel8.setHorizontalAlignment(JLabel.CENTER);
+        Compartidas.nom_unidad = "";
+        Compartidas.nom_tema = "";
+        Compartidas.cod_tema = "";
         this.ObetenerUnidad();
         
         this.PonerNombre();
@@ -78,6 +87,7 @@ public class EdicionUnidad extends javax.swing.JFrame {
         JPanelContenido = new javax.swing.JPanel();
         ScrollEvaluacion = new javax.swing.JScrollPane();
         JPanelEvaluacion = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -169,6 +179,8 @@ public class EdicionUnidad extends javax.swing.JFrame {
         JPanelEvaluacion.setLayout(new java.awt.GridLayout(0, 1));
         ScrollEvaluacion.setViewportView(JPanelEvaluacion);
 
+        jLabel8.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
+
         jMenuBar1.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
 
         jMenu1.setText("Archivo");
@@ -201,10 +213,6 @@ public class EdicionUnidad extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(281, 281, 281)
                 .addComponent(jLabel1)
                 .addGap(55, 55, 55)
@@ -215,25 +223,26 @@ public class EdicionUnidad extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton2)
+                            .addComponent(jLabel3))
+                        .addGap(105, 105, 105)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(109, 109, 109)
-                                .addComponent(jLabel4)
-                                .addGap(109, 109, 109)
-                                .addComponent(jLabel5))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton2)
-                                .addGap(105, 105, 105)
-                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(115, 115, 115)
-                                .addComponent(jButton4)))
+                                .addComponent(jButton4))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(102, 102, 102)
+                                .addComponent(jLabel5)))
                         .addGap(82, 82, 82)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jButton5)
                                 .addGap(109, 109, 109)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel7)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(jLabel6))
                         .addContainerGap())
@@ -244,23 +253,29 @@ public class EdicionUnidad extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(ScrollEvaluacion, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(4, 4, 4))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 305, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(306, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(jtxNom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel3))
-                        .addGap(2, 2, 2))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel4)
+                        .addComponent(jLabel3))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(2, 2, 2)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -301,7 +316,20 @@ public class EdicionUnidad extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // Boton Editar Tema:
-        this.MostrarTemas();
+        
+        for(JRadioButton tmp: Botones){
+            if(tmp.isSelected()){
+                String nom = tmp.getText();                
+                String[] num = nom.split(Pattern.quote("."));
+                Compartidas.cod_tema = num[0];
+                Compartidas.nom_tema = num[1].replace(" ", "");
+            }
+        }
+        
+        EdicionTema tem = new EdicionTema();
+        tem.setLocationRelativeTo(null);
+        tem.setVisible(true);
+        this.dispose();       
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -317,9 +345,7 @@ public class EdicionUnidad extends javax.swing.JFrame {
                 this.EliminarTema(num[0]);
             }
         }
-        this.MostrarTemas();
-        
-        
+        this.MostrarTemas();       
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -359,6 +385,7 @@ public class EdicionUnidad extends javax.swing.JFrame {
         JSONArray arr = (JSONArray) arrayUnidades.get(0);
         JSONObject user = (JSONObject) arr.get(indice);
         String nom = user.get("nom").toString();
+        Compartidas.nom_unidad = nom;
         this.jtxNom.setText(nom);
     }
     
@@ -398,16 +425,17 @@ public class EdicionUnidad extends javax.swing.JFrame {
                 String nom = user.get("nom").toString();
                 String codt = user.get("codt").toString();                
                 String codu = user.get("codu").toString();
-                String con = user.get("con").toString(); 
+                String conO = user.get("conO").toString();
+                String conM = user.get("conM").toString(); 
                 
                 if(codu.equals(Compartidas.codigo_unidad)){
                     if(!pnum.equals(codt)){
-                        nuevo.add(new Tema(nom,codt,codu,con));
+                        nuevo.add(new Tema(nom,codt,codu,conO,conM));
                     }else{
                         this.Alerta("Unidad ELIMINADA!");
                     } 
                 }else{
-                    nuevo.add(new Tema(nom,codt,codu,con));
+                    nuevo.add(new Tema(nom,codt,codu,conO,conM));
                 }                             
             }
         }
@@ -519,6 +547,7 @@ public class EdicionUnidad extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;

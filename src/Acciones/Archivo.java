@@ -18,12 +18,14 @@ import java.io.StringWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 /**
  *
@@ -37,12 +39,17 @@ public class Archivo {
 
     //Constructor de la aplicacion
     public Archivo(){   
+        this.ObtenerRutaArchivo();
+    }
+    
+    
+    public void ObtenerRutaArchivo(){
         File a = new File(".");
         if(a.getAbsolutePath().contains("dist")){
             this.ruta = a.getAbsolutePath() + "\\Archivo\\datos.bin";  
         }else{
             this.ruta = a.getAbsolutePath() + "\\src\\Archivo\\datos.bin";
-        }          
+        }  
     }
     
     
@@ -445,9 +452,41 @@ public class Archivo {
         }        
         return null;
     }  
+        
+    //Metodo para obtener la ruta de las imagenes del cursos 
+    public String ObtenerRutaIC(){
+        
+        String aux = "";
+        
+        File a = new File(".");
+        
+        if(a.getAbsolutePath().contains("dist")){
+            aux = a.getAbsolutePath() + "\\ImagenesCurso\\";  
+        }else{
+            aux = a.getAbsolutePath() + "\\src\\ImagenesCurso\\";
+        }          
+        
+        return aux.replace("\\.","" );
+    }
+        
+    //Metodo para parsear el html y poner la ruta absoluta de las imagenes del curso
+    public String ParserHTML(String phtml){
+    
+        String nueva = "";     //nuevo html   
+        Document doc = Jsoup.parse(phtml); //parsear html 
+        Elements images = doc.select("img[src~=(?i)\\.(png|jpe?g|gif)]");  //seleccionamos etiqueta img      
+        for (Element image : images) { //recoremos todas las imagenes del html
+            String imgsrc= ClassLoader.getSystemResource(image.attr("src")).toString(); // obtenemos la ruta correcta de la imagen            
+            image.removeAttr("src").attr("src", imgsrc); // cambiamos el atributo           
+        }        
+        nueva = doc.toString(); // devolvemos el nuevo html        
+        return nueva;
+    }
     
     
     // </editor-fold>
 
+    
+    
 
 }

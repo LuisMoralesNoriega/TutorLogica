@@ -10,6 +10,7 @@ import Acciones.Compartidas;
 import Entidades.Tema;
 import java.io.IOException;
 import java.io.StringWriter;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -30,6 +31,8 @@ public class AgregarTema extends javax.swing.JFrame {
         initComponents();
         this.a = new Archivo();
         this.insertado = false;
+        this.jLabel2.setHorizontalAlignment(JLabel.CENTER);
+        this.jLabel4.setHorizontalAlignment(JLabel.CENTER);
     }
 
     /**
@@ -185,7 +188,7 @@ public class AgregarTema extends javax.swing.JFrame {
         JSONArray nuevo = new JSONArray();
         
         if(arrayTemas == null){
-            nuevo.add(new Tema(nombre,num,Compartidas.codigo_unidad,""));     
+            nuevo.add(new Tema(nombre,num,Compartidas.codigo_unidad));     
             this.insertado = true;
         }
         
@@ -209,7 +212,8 @@ public class AgregarTema extends javax.swing.JFrame {
                 String nom = user.get("nom").toString();
                 String codt = user.get("codt").toString();                
                 String codu = user.get("codu").toString();
-                String con = user.get("con").toString();
+                String conO = user.get("conO").toString();
+                String conM = user.get("conM").toString();
                 
                 int cod = Integer.parseInt(codt); 
                 
@@ -218,17 +222,17 @@ public class AgregarTema extends javax.swing.JFrame {
                         int n = Integer.parseInt(num);
 
                         if(n < cod && !insertado){
-                            nuevo.add(new Tema(nombre,num,Compartidas.codigo_unidad,""));
-                            nuevo.add(new Tema(nom,codt,codu,con));
+                            nuevo.add(new Tema(nombre,num,Compartidas.codigo_unidad));
+                            nuevo.add(new Tema(nom,codt,codu,conO,conM));
                             insertado = true;
                             entro = true;
                         }else if( cod < n && n < nsig ){
-                            nuevo.add(new Tema(nom,codt,codu,con));
-                            nuevo.add(new Tema(nombre,num,Compartidas.codigo_unidad,""));
+                            nuevo.add(new Tema(nom,codt,codu,conO,conM));
+                            nuevo.add(new Tema(nombre,num,Compartidas.codigo_unidad));
                             insertado = true;
                             entro = true;
                         }else{
-                            nuevo.add(new Tema(nom,codt,codu,con));
+                            nuevo.add(new Tema(nom,codt,codu,conO,conM));
                         }
 
                     }else{
@@ -237,16 +241,13 @@ public class AgregarTema extends javax.swing.JFrame {
                     }
                 
                 }else{
-                    nuevo.add(new Tema(nom,codt,codu,con));                
-                }
-                
-                
-                                                
+                    nuevo.add(new Tema(nom,codt,codu,conO,conM));                
+                }                          
             }
         }
         
         if(!entro && !insertado){
-            nuevo.add(new Tema(nombre,num,Compartidas.codigo_unidad,""));
+            nuevo.add(new Tema(nombre,num,Compartidas.codigo_unidad));
         }
               
         this.Alerta("Tema Creado");
