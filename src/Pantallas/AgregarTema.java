@@ -213,7 +213,6 @@ public class AgregarTema extends javax.swing.JFrame {
                 String codt = user.get("codt").toString();                
                 String codu = user.get("codu").toString();
                 String conO = user.get("conO").toString();
-                String conM = user.get("conM").toString();
                 
                 int cod = Integer.parseInt(codt); 
                 
@@ -223,16 +222,16 @@ public class AgregarTema extends javax.swing.JFrame {
 
                         if(n < cod && !insertado){
                             nuevo.add(new Tema(nombre,num,Compartidas.codigo_unidad));
-                            nuevo.add(new Tema(nom,codt,codu,conO,conM));
+                            nuevo.add(new Tema(nom,codt,codu,conO));
                             insertado = true;
                             entro = true;
                         }else if( cod < n && n < nsig ){
-                            nuevo.add(new Tema(nom,codt,codu,conO,conM));
+                            nuevo.add(new Tema(nom,codt,codu,conO));
                             nuevo.add(new Tema(nombre,num,Compartidas.codigo_unidad));
                             insertado = true;
                             entro = true;
                         }else{
-                            nuevo.add(new Tema(nom,codt,codu,conO,conM));
+                            nuevo.add(new Tema(nom,codt,codu,conO));
                         }
 
                     }else{
@@ -241,7 +240,7 @@ public class AgregarTema extends javax.swing.JFrame {
                     }
                 
                 }else{
-                    nuevo.add(new Tema(nom,codt,codu,conO,conM));                
+                    nuevo.add(new Tema(nom,codt,codu,conO));                
                 }                          
             }
         }

@@ -7,20 +7,10 @@ package Pantallas;
 
 import Acciones.Archivo;
 import Acciones.Compartidas;
-import Entidades.Curso;
-import com.sun.org.apache.bcel.internal.generic.AALOAD;
-import java.io.IOException;
-import java.io.StringWriter;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
-import javax.swing.event.ChangeEvent;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 
 /**
  *

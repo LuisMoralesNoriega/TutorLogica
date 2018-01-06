@@ -5,14 +5,26 @@
  */
 package Pantallas;
 
+import Acciones.Archivo;
 import Acciones.Compartidas;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.regex.Pattern;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 /**
  *
  * @author Koko
  */
-public class General extends javax.swing.JFrame {
+public class General extends javax.swing.JFrame implements ActionListener {
 
+    public ArrayList<JButton> Botones;
+    public Archivo a;
+    
     /**
      * Creates new form General
      */
@@ -23,8 +35,20 @@ public class General extends javax.swing.JFrame {
         }else{
             this.jMenuItem1.disable();
         }
+        
+        this.jLabel8.setText(Compartidas.curso);
+        this.jLabel2.setHorizontalAlignment(JLabel.CENTER);
+        this.jLabel8.setHorizontalAlignment(JLabel.CENTER);
+        
+        this.a = new Archivo();
+        this.Botones = new ArrayList<>();
+        
+        this.MostrarUnidades();
+        
     }
 
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -34,6 +58,10 @@ public class General extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel2 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        ScrollUnidades = new javax.swing.JScrollPane();
+        JPanelUnidades = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -43,6 +71,16 @@ public class General extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("General");
+
+        jLabel2.setFont(new java.awt.Font("Comic Sans MS", 1, 36)); // NOI18N
+        jLabel2.setText("Bienvenido");
+
+        jLabel8.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
+
+        ScrollUnidades.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Unidades", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Comic Sans MS", 2, 12))); // NOI18N
+
+        JPanelUnidades.setLayout(new java.awt.GridLayout(0, 1));
+        ScrollUnidades.setViewportView(JPanelUnidades);
 
         jMenuBar1.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
 
@@ -84,11 +122,23 @@ public class General extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 547, Short.MAX_VALUE)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ScrollUnidades))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 279, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ScrollUnidades, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE))
         );
 
         pack();
@@ -112,6 +162,43 @@ public class General extends javax.swing.JFrame {
         }     
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
+    
+    public void MostrarUnidades(){ 
+        
+        this.JPanelUnidades.removeAll();
+        
+        JSONArray arrayUnidades = this.a.arrayUnidades();
+        
+         if(arrayUnidades != null){
+            JSONArray arr = (JSONArray) arrayUnidades.get(0);
+            for(int i = 0; i < arr.size(); i++){                
+                JSONObject user = (JSONObject) arr.get(i);
+                String nom = user.get("nom").toString();
+                String codu = user.get("codu").toString();    
+                JButton nuevo =  new JButton(codu + ". " + nom);
+                nuevo.setActionCommand(codu + "." + nom); 
+                nuevo.addActionListener(this);
+                this.Botones.add(nuevo);
+                this.JPanelUnidades.add(nuevo);                                
+            }
+        }
+        this.JPanelUnidades.updateUI();
+    }
+    
+    public void actionPerformed(ActionEvent e) {
+               
+        String[] uni = e.getActionCommand().toString().split(Pattern.quote("."));
+        
+        
+        Compartidas.codigo_unidad = uni[0];
+        Compartidas.nom_unidad = uni[1];
+        
+        InteraccionTemas it = new InteraccionTemas();
+        it.setLocationRelativeTo(null);
+        it.setVisible(true);
+        this.dispose();
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -148,6 +235,10 @@ public class General extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel JPanelUnidades;
+    private javax.swing.JScrollPane ScrollUnidades;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;

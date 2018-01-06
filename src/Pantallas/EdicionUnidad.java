@@ -9,7 +9,8 @@ import Acciones.Archivo;
 import Acciones.Compartidas;
 import Entidades.Tema;
 import Entidades.Unidad;
-import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.ArrayList;
@@ -17,6 +18,9 @@ import java.util.regex.Pattern;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
+import javax.swing.text.Document;
+import javax.swing.text.html.HTMLEditorKit;
+import javax.swing.text.html.StyleSheet;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -24,7 +28,7 @@ import org.json.simple.JSONObject;
  *
  * @author Koko
  */
-public class EdicionUnidad extends javax.swing.JFrame {
+public class EdicionUnidad extends javax.swing.JFrame implements ActionListener {
 
     Archivo a;
     JSONArray arrayUnidades;
@@ -41,7 +45,7 @@ public class EdicionUnidad extends javax.swing.JFrame {
         this.a = new Archivo();
         this.arrayUnidades =  new JSONArray();
         this.Botones = new ArrayList<>();
-        this.indice = -1;        
+        this.indice = -1;   
         this.jLabel2.setHorizontalAlignment(JLabel.CENTER);
         this.jLabel4.setHorizontalAlignment(JLabel.CENTER);
         this.jLabel7.setHorizontalAlignment(JLabel.CENTER);
@@ -84,7 +88,7 @@ public class EdicionUnidad extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         ScrollContenido = new javax.swing.JScrollPane();
-        JPanelContenido = new javax.swing.JPanel();
+        jEditorHtml = new javax.swing.JEditorPane();
         ScrollEvaluacion = new javax.swing.JScrollPane();
         JPanelEvaluacion = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
@@ -171,8 +175,9 @@ public class EdicionUnidad extends javax.swing.JFrame {
 
         ScrollContenido.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Contenido", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Comic Sans MS", 1, 12))); // NOI18N
 
-        JPanelContenido.setLayout(new java.awt.GridLayout(0, 1));
-        ScrollContenido.setViewportView(JPanelContenido);
+        jEditorHtml.setEditable(false);
+        jEditorHtml.setContentType("text/html"); // NOI18N
+        ScrollContenido.setViewportView(jEditorHtml);
 
         ScrollEvaluacion.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Evaluacion", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Comic Sans MS", 1, 12))); // NOI18N
 
@@ -404,6 +409,8 @@ public class EdicionUnidad extends javax.swing.JFrame {
                     String nom = user.get("nom").toString();
                     String codt = user.get("codt").toString();    
                     JRadioButton nuevo =  new JRadioButton(codt + ". " + nom);
+                    nuevo.setActionCommand(codt); 
+                    nuevo.addActionListener(this);
                     this.GTemas.add(nuevo);
                     this.Botones.add(nuevo);
                     this.JPanelTemas.add(nuevo);  
@@ -426,16 +433,15 @@ public class EdicionUnidad extends javax.swing.JFrame {
                 String codt = user.get("codt").toString();                
                 String codu = user.get("codu").toString();
                 String conO = user.get("conO").toString();
-                String conM = user.get("conM").toString(); 
                 
                 if(codu.equals(Compartidas.codigo_unidad)){
                     if(!pnum.equals(codt)){
-                        nuevo.add(new Tema(nom,codt,codu,conO,conM));
+                        nuevo.add(new Tema(nom,codt,codu,conO));
                     }else{
                         this.Alerta("Unidad ELIMINADA!");
                     } 
                 }else{
-                    nuevo.add(new Tema(nom,codt,codu,conO,conM));
+                    nuevo.add(new Tema(nom,codt,codu,conO));
                 }                             
             }
         }
@@ -490,6 +496,58 @@ public class EdicionUnidad extends javax.swing.JFrame {
                 
         
     }
+        
+    public void PonerContenidos(String pcodt){        
+        this.jEditorHtml.removeAll();     
+        JSONArray arrayTemas = this.a.arrayTemas();        
+                
+         if(arrayTemas != null){
+            JSONArray arr = (JSONArray) arrayTemas.get(0);
+            for(int i = 0; i < arr.size(); i++){                
+                JSONObject user = (JSONObject) arr.get(i);
+                String codu = user.get("codu").toString();                
+                String codt = user.get("codt").toString();
+                if(codu.equals(Compartidas.codigo_unidad) && codt.equals(pcodt)){
+                    String cono = user.get("conO").toString();
+                    this.ActualizarEditor(cono);
+                }
+            }
+        }
+        
+        
+        
+    }
+    
+    public void ActualizarEditor(String contenido){
+    
+        this.jEditorHtml.removeAll();
+        
+        HTMLEditorKit kit = new HTMLEditorKit();
+        this.jEditorHtml.setEditorKit(kit);
+        
+        StyleSheet styleSheet = kit.getStyleSheet();
+        styleSheet.addRule("body {color:#000; font-family:Comic Sans MS,cursive,sans-serif; margin: 4px; }");
+        styleSheet.addRule("h1 {color: #ff0000; text-align: center;}"); // Titulos
+        styleSheet.addRule("h2 {color: #007FFD; text-align: left; }"); // Sub titulos
+        styleSheet.addRule("p {color: #000000; text-align: justify; }"); // contenido
+
+        String htmlStringo = contenido;                
+        
+        String htmlString = this.a.ParserHTML(htmlStringo);
+        
+        Document doc = kit.createDefaultDocument();
+        this.jEditorHtml.setDocument(doc);
+        this.jEditorHtml.setText(htmlString);
+        
+        
+    }
+    
+    public void actionPerformed(ActionEvent e) {
+               
+        this.PonerContenidos(e.getActionCommand());
+                
+    }
+    
     
     
     /**
@@ -529,7 +587,6 @@ public class EdicionUnidad extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup GTemas;
-    private javax.swing.JPanel JPanelContenido;
     private javax.swing.JPanel JPanelEvaluacion;
     private javax.swing.JPanel JPanelTemas;
     private javax.swing.JScrollPane ScrollContenido;
@@ -540,6 +597,7 @@ public class EdicionUnidad extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JEditorPane jEditorHtml;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

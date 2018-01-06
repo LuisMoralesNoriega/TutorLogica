@@ -10,16 +10,8 @@ import Acciones.Compartidas;
 import Entidades.Tema;
 import java.io.IOException;
 import java.io.StringWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import static javafx.application.Application.launch;
-import javafx.embed.swing.JFXPanel;
-import javafx.scene.Scene;
-import javafx.scene.web.HTMLEditor;
-import javafx.stage.Stage;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JRadioButton;
 import javax.swing.text.Document;
 import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.text.html.StyleSheet;
@@ -37,7 +29,6 @@ public class EdicionTema extends javax.swing.JFrame {
     Archivo a;
     JSONArray arrayTemas;
     String ContenidoO;
-    String ContenidoM;
     int indice;
     
     
@@ -52,7 +43,6 @@ public class EdicionTema extends javax.swing.JFrame {
         this.a = new Archivo();
         this.arrayTemas = new JSONArray();
         this.ContenidoO = "";
-        this.ContenidoM = "";
         this.indice = -1;
                 
         this.jLabel8.setText(Compartidas.curso);
@@ -284,9 +274,8 @@ public class EdicionTema extends javax.swing.JFrame {
         // Boton Guardar Tema:
         String nombre = this.jtxNom.getText();
         String htmlOriginal = this.AreadeTexto.getText();
-        String htmlMostrar = this.a.ParserHTML(htmlOriginal);
         
-        this.GuardarTema(nombre, htmlOriginal, htmlMostrar);
+        this.GuardarTema(nombre, htmlOriginal);
         
         
     }//GEN-LAST:event_jButton6ActionPerformed
@@ -343,7 +332,6 @@ public class EdicionTema extends javax.swing.JFrame {
                     String codt = user.get("codt").toString(); 
                     if(codt.equals(Compartidas.cod_tema)){
                         this.ContenidoO = user.get("conO").toString();
-                        this.ContenidoM = user.get("conM").toString();
                         this.indice = i;
                     }
                 }
@@ -381,7 +369,7 @@ public class EdicionTema extends javax.swing.JFrame {
     
     }
     
-    public void GuardarTema(String pnom, String original, String mostrar){
+    public void GuardarTema(String pnom, String original){
         
         this.arrayTemas = this.a.arrayTemas();
         JSONArray arrnuevo = new JSONArray();
@@ -394,12 +382,11 @@ public class EdicionTema extends javax.swing.JFrame {
                 String codt = user.get("codt").toString();                
                 String codu = user.get("codu").toString();
                 String conO = user.get("conO").toString();
-                String conM = user.get("conM").toString();
                 
                 if(this.indice == i){
-                    arrnuevo.add(new Tema(pnom,codt,codu,original,mostrar));
+                    arrnuevo.add(new Tema(pnom,codt,codu,original));
                 }else{
-                    arrnuevo.add(new Tema(nom,codt,codu,conO,conM));
+                    arrnuevo.add(new Tema(nom,codt,codu,conO));
                 }                
             }
         }
