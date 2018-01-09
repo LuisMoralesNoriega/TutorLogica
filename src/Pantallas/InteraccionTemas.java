@@ -137,6 +137,11 @@ public class InteraccionTemas extends javax.swing.JFrame {
 
         jMenuItem2.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
         jMenuItem2.setText("Creditos");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem2);
 
         jMenuBar1.add(jMenu2);
@@ -215,6 +220,13 @@ public class InteraccionTemas extends javax.swing.JFrame {
         // Boton Siguiente:
         this.TemaSiguiente();
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // Acerda de:
+        AcerdaDe ad = new AcerdaDe();
+        ad.setLocationRelativeTo(null);
+        ad.setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     
     public void CargarTemas(){

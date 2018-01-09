@@ -201,9 +201,6 @@ public class ActualizaPerfil extends javax.swing.JFrame {
         
         JOptionPane.showMessageDialog(null, "Curso Actualizado Correctamente", "Loguin", JOptionPane.WARNING_MESSAGE);
         
-        Configuraciones ac = new Configuraciones();
-        ac.setLocationRelativeTo(null);
-        ac.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 

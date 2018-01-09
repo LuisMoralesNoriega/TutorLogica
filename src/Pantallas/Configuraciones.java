@@ -25,6 +25,7 @@ public class Configuraciones extends javax.swing.JFrame {
      */
     public Configuraciones() {
         initComponents();
+        
         this.estilo = 0;
         this.jLabel4.setHorizontalAlignment(JLabel.CENTER);
         this.jLabel5.setHorizontalAlignment(JLabel.CENTER);
@@ -383,6 +384,11 @@ public class Configuraciones extends javax.swing.JFrame {
 
         jMenuItem2.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
         jMenuItem2.setText("Creditos");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem2);
 
         jMenuBar1.add(jMenu2);
@@ -417,10 +423,17 @@ public class Configuraciones extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // Boton Regresar:
-        Administrador admin = new Administrador();
-        admin.setLocationRelativeTo(null);
-        admin.setVisible(true);
-        this.dispose();
+        if(!Compartidas.admin){
+            General g = new General();
+            g.setLocationRelativeTo(null);
+            g.setVisible(true);
+            this.dispose(); 
+        }else{
+            Administrador admin = new Administrador();
+            admin.setLocationRelativeTo(null);
+            admin.setVisible(true);
+            this.dispose();    
+        }        
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -525,7 +538,6 @@ public class Configuraciones extends javax.swing.JFrame {
         ActualizaPerfil ac = new ActualizaPerfil();
         ac.setLocationRelativeTo(null);
         ac.setVisible(true);
-        this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
@@ -536,8 +548,21 @@ public class Configuraciones extends javax.swing.JFrame {
             this.jLCodc.setText(Compartidas.codigo_curso);
             this.jLAdmin.setText(Compartidas.usuario);
             this.jLContraA.setText(Compartidas.contra);
+            if(!Compartidas.admin){
+                this.jLabel9.setText("Estudiante");
+                this.jLabel11.setText("");
+                this.jLContraA.setText("");
+                this.jButton3.setEnabled(false);
+            }
         }        
     }//GEN-LAST:event_jTabbedPane1MouseClicked
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // Acerda de:
+        AcerdaDe ad = new AcerdaDe();
+        ad.setLocationRelativeTo(null);
+        ad.setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
    
     

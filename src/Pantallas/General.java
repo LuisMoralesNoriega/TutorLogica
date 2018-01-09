@@ -65,6 +65,7 @@ public class General extends javax.swing.JFrame implements ActionListener {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -96,6 +97,15 @@ public class General extends javax.swing.JFrame implements ActionListener {
         });
         jMenu1.add(jMenuItem3);
 
+        jMenuItem4.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
+        jMenuItem4.setText("Preferencias");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem4);
+
         jMenuItem1.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
         jMenuItem1.setText("Cerrar Sesion");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -112,6 +122,11 @@ public class General extends javax.swing.JFrame implements ActionListener {
 
         jMenuItem2.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
         jMenuItem2.setText("Creditos");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem2);
 
         jMenuBar1.add(jMenu2);
@@ -161,6 +176,21 @@ public class General extends javax.swing.JFrame implements ActionListener {
             this.dispose();
         }     
     }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // Acerda de:
+        AcerdaDe ad = new AcerdaDe();
+        ad.setLocationRelativeTo(null);
+        ad.setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // Preferencias:
+        Configuraciones c = new Configuraciones();
+        c.setLocationRelativeTo(null);
+        c.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     
     public void MostrarUnidades(){ 
@@ -245,5 +275,6 @@ public class General extends javax.swing.JFrame implements ActionListener {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     // End of variables declaration//GEN-END:variables
 }

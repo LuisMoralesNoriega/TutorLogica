@@ -7,7 +7,6 @@ package Pantallas;
 
 import Acciones.Archivo;
 import Acciones.Compartidas;
-import Entidades.Usuario;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
@@ -27,12 +26,15 @@ public class Loguin extends javax.swing.JFrame {
      */
    
     public Loguin() {
+         
         initComponents();
-        this.jLabel2.setHorizontalAlignment(JLabel.CENTER);
-        this.jLabel4.setHorizontalAlignment(JLabel.CENTER);
+        
         this.a = new Archivo();        
         this.Estilo(this.a.ObtenerEstilo());
         this.a.ObtenerCurso();
+        this.jLabel2.setHorizontalAlignment(JLabel.CENTER);
+        this.jLabel4.setHorizontalAlignment(JLabel.CENTER);   
+            
     }
 
     /**
@@ -158,7 +160,6 @@ public class Loguin extends javax.swing.JFrame {
        Registro reg = new Registro();
        reg.setLocationRelativeTo(null);
        reg.setVisible(true);
-       
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

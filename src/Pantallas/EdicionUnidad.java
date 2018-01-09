@@ -207,6 +207,11 @@ public class EdicionUnidad extends javax.swing.JFrame implements ActionListener 
 
         jMenuItem2.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
         jMenuItem2.setText("Creditos");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem2);
 
         jMenuBar1.add(jMenu2);
@@ -322,19 +327,29 @@ public class EdicionUnidad extends javax.swing.JFrame implements ActionListener 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // Boton Editar Tema:
         
+        boolean seleccionado = false;
+        
         for(JRadioButton tmp: Botones){
             if(tmp.isSelected()){
                 String nom = tmp.getText();                
                 String[] num = nom.split(Pattern.quote("."));
                 Compartidas.cod_tema = num[0];
-                Compartidas.nom_tema = num[1].replace(" ", "");
+                String nomt = num[1];
+                Compartidas.nom_tema = nomt.substring(1,nomt.length());
+                seleccionado = true;
             }
         }
         
-        EdicionTema tem = new EdicionTema();
-        tem.setLocationRelativeTo(null);
-        tem.setVisible(true);
-        this.dispose();       
+        if(seleccionado){
+            EdicionTema tem = new EdicionTema();
+            tem.setLocationRelativeTo(null);
+            tem.setVisible(true);
+            this.dispose();  
+        }else{
+            this.Alerta("Seleccione un Tema!");
+        }
+        
+             
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -366,6 +381,13 @@ public class EdicionUnidad extends javax.swing.JFrame implements ActionListener 
         String nombre = jtxNom.getText();    
         this.GuardarNombredeUnidad(nombre);                
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // Acerda de:
+        AcerdaDe ad = new AcerdaDe();
+        ad.setLocationRelativeTo(null);
+        ad.setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
     
     public void Alerta(String msg){
         JOptionPane.showMessageDialog(null, msg, "Edicion de Unidad", JOptionPane.WARNING_MESSAGE);
@@ -438,7 +460,7 @@ public class EdicionUnidad extends javax.swing.JFrame implements ActionListener 
                     if(!pnum.equals(codt)){
                         nuevo.add(new Tema(nom,codt,codu,conO));
                     }else{
-                        this.Alerta("Unidad ELIMINADA!");
+                        this.Alerta("Tema ELIMINADO correctamente!");
                     } 
                 }else{
                     nuevo.add(new Tema(nom,codt,codu,conO));
