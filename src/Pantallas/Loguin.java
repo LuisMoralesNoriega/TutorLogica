@@ -28,7 +28,6 @@ public class Loguin extends javax.swing.JFrame {
     public Loguin() {
          
         initComponents();
-        
         this.a = new Archivo();        
         this.Estilo(this.a.ObtenerEstilo());
         this.a.ObtenerCurso();
