@@ -37,6 +37,7 @@ public class AcerdaDe extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Acerda De");
@@ -67,6 +68,9 @@ public class AcerdaDe extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setFont(new java.awt.Font("Comic Sans MS", 2, 14)); // NOI18N
+        jLabel3.setText("ingLuis07@gmail.com");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -86,6 +90,9 @@ public class AcerdaDe extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(296, 296, 296)
                 .addComponent(jButton2))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -103,7 +110,9 @@ public class AcerdaDe extends javax.swing.JFrame {
                     .addComponent(jLabel6))
                 .addGap(1, 1, 1)
                 .addComponent(jLabel1)
-                .addGap(6, 6, 6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2))
         );
 
@@ -154,6 +163,7 @@ public class AcerdaDe extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;

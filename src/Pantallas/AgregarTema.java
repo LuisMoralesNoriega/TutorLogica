@@ -272,6 +272,9 @@ public class AgregarTema extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // Bonton cancelar:
+        EdicionUnidad eu = new EdicionUnidad();
+        eu.setLocationRelativeTo(null);
+        eu.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
