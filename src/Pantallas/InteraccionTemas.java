@@ -231,8 +231,6 @@ public class InteraccionTemas extends javax.swing.JFrame {
 
     
     
-    
-    
     public void CargarTemas(){
         
         JSONArray arrayTemas = this.a.arrayTemas();        

@@ -50,8 +50,8 @@ public class Archivo {
         
         if(sSistemaOperativo.contains("Windows")){
             try {
-                this.ruta = a.getCanonicalPath() + "\\Archivo\\datos.bin";
-               // this.ruta = a.getCanonicalPath() + "\\src\\Archivo\\datos.bin";
+              // this.ruta = a.getCanonicalPath() + "\\Archivo\\datos.bin";
+                this.ruta = a.getCanonicalPath() + "\\src\\Archivo\\datos.bin";
                // this.Alerta("La ruta es: " + ruta);
             } catch (IOException ex) {
                 Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);

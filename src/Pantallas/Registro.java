@@ -229,7 +229,7 @@ public class Registro extends javax.swing.JFrame {
         this.Registrar(nom, con);
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    // <editor-fold desc="Codigo de Registro>
+// <editor-fold desc="Codigo de Registro>
     
     //Metodo para alertas del programa
     public void Alerta(String msg){
@@ -287,7 +287,7 @@ public class Registro extends javax.swing.JFrame {
     }
         
        
-    // </editor-fold>
+// </editor-fold>
     
     
     /**

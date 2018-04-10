@@ -219,7 +219,6 @@ public class General extends javax.swing.JFrame implements ActionListener {
                
         String[] uni = e.getActionCommand().toString().split(Pattern.quote("."));
         
-        
         Compartidas.codigo_unidad = uni[0];
         Compartidas.nom_unidad = uni[1];
         
