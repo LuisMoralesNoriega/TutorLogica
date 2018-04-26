@@ -60,6 +60,8 @@ public class EdicionUnidad extends javax.swing.JFrame implements ActionListener 
         
         this.MostrarTemas();
         
+        this.MostrarPreguntas();
+        
     }
 
     /**
@@ -72,6 +74,7 @@ public class EdicionUnidad extends javax.swing.JFrame implements ActionListener 
     private void initComponents() {
 
         GTemas = new javax.swing.ButtonGroup();
+        GPreguntas = new javax.swing.ButtonGroup();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jtxNom = new javax.swing.JTextField();
@@ -136,7 +139,7 @@ public class EdicionUnidad extends javax.swing.JFrame implements ActionListener 
         });
 
         jLabel5.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
-        jLabel5.setText("Agregar Evaluacion");
+        jLabel5.setText("Evaluacion");
 
         jButton4.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/evaluaciont.png"))); // NOI18N
@@ -239,13 +242,10 @@ public class EdicionUnidad extends javax.swing.JFrame implements ActionListener 
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(115, 115, 115)
-                                .addComponent(jButton4))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(102, 102, 102)
-                                .addComponent(jLabel5)))
+                        .addGap(115, 115, 115)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(82, 82, 82)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -354,6 +354,10 @@ public class EdicionUnidad extends javax.swing.JFrame implements ActionListener 
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // Boton Agregar Evaluacion:
+        Evaluacion ev = new Evaluacion();
+        ev.setLocationRelativeTo(null);
+        ev.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -570,7 +574,40 @@ public class EdicionUnidad extends javax.swing.JFrame implements ActionListener 
                 
     }
     
-    
+    public void MostrarPreguntas(){ 
+        
+        this.JPanelEvaluacion.removeAll();
+        
+        JSONArray arrayPreguntas = this.a.arrayPreguntas();
+        
+        if(arrayPreguntas != null){
+            JSONArray arr = (JSONArray) arrayPreguntas.get(0);
+            int cnt = 0;
+            for(int i = 0; i < arr.size(); i++){                
+                JSONObject preg = (JSONObject) arr.get(i);
+                String nom = preg.get("preg").toString();
+                String tip = preg.get("tipo").toString();                
+                String r1 = preg.get("r1").toString();                
+                String r2 = preg.get("r2").toString();                
+                String r3 = preg.get("r3").toString();                
+                String r4 = preg.get("r4").toString();
+                String codu = preg.get("codu").toString(); 
+                if(codu.equals(Compartidas.codigo_unidad)){                    
+                    cnt++;
+                    JRadioButton nuevo;
+                    if(tip.equals("1")){
+                        nuevo =  new JRadioButton(cnt + ". " + nom + "\n Respuestas: " + r1);
+                    }else{
+                        nuevo =  new JRadioButton(cnt + ". " + nom + "\n Respuestas: " + r1 + ", " + r2 + ", " + r3 + ", " + r4);
+                    }                    
+                    this.GPreguntas.add(nuevo);
+                    this.Botones.add(nuevo);
+                    this.JPanelEvaluacion.add(nuevo);                      
+                }                                              
+            }
+        }
+        this.JPanelEvaluacion.updateUI();
+    }
     
     /**
      * @param args the command line arguments
@@ -608,6 +645,7 @@ public class EdicionUnidad extends javax.swing.JFrame implements ActionListener 
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup GPreguntas;
     private javax.swing.ButtonGroup GTemas;
     private javax.swing.JPanel JPanelEvaluacion;
     private javax.swing.JPanel JPanelTemas;

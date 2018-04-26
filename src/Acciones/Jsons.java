@@ -16,6 +16,7 @@ public class Jsons implements java.io.Serializable {
     public String cursos;
     public String unidades;    
     public String temas;
+    public String evaluacion;
 
     public Jsons(){
         this.estilo = 0;
@@ -23,14 +24,16 @@ public class Jsons implements java.io.Serializable {
         this.cursos = "";
         this.unidades = "";
         this.temas = "";
+        this.evaluacion = "";
     }
     
-    public Jsons(String usuario, String curso, int estilo, String unidades, String temas) {
+    public Jsons(String usuario, String curso, int estilo, String unidades, String temas, String eva) {
         this.estilo = estilo;
         this.usuario = usuario;        
         this.cursos = curso;
         this.unidades = unidades;
         this.temas = temas;
+        this.evaluacion = eva;
     }   
     
     

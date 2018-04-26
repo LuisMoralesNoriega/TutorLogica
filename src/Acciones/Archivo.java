@@ -83,8 +83,9 @@ public class Archivo {
             int estilo = this.ObtenerEstilo();
             String unidades = this.ObtenerUnidades();
             String temas = this.ObtenerTemas();
+            String eva =  this.ObtenerEvaluacion();
             salida = new ObjectOutputStream(new FileOutputStream(ruta));            
-            salida.writeObject(new Jsons(usuario,cursos,estilo,unidades,temas));
+            salida.writeObject(new Jsons(usuario,cursos,estilo,unidades,temas,eva));
             salida.close();
         }catch(FileNotFoundException ex){
             Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
@@ -171,8 +172,9 @@ public class Archivo {
             String cursos = this.ObtenerCursos();
             String unidades = this.ObtenerUnidades();
             String temas = this.ObtenerTemas();
+            String eva =  this.ObtenerEvaluacion();
             salida = new ObjectOutputStream(new FileOutputStream(ruta));     
-            salida.writeObject(new Jsons(usuarios,cursos,pestilo,unidades,temas));
+            salida.writeObject(new Jsons(usuarios,cursos,pestilo,unidades,temas,eva));
             salida.close();
         }catch(FileNotFoundException ex){
             Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
@@ -222,8 +224,9 @@ public class Archivo {
             int estilo = this.ObtenerEstilo();
             String unidades = this.ObtenerUnidades();
             String temas = this.ObtenerTemas();
+            String eva =  this.ObtenerEvaluacion();
             salida = new ObjectOutputStream(new FileOutputStream(ruta));            
-            salida.writeObject(new Jsons(usuarios,curso,estilo,unidades,temas));
+            salida.writeObject(new Jsons(usuarios,curso,estilo,unidades,temas,eva));
             salida.close();
         }catch(FileNotFoundException ex){
             Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
@@ -346,8 +349,9 @@ public class Archivo {
             String cursos = this.ObtenerCursos();
             int estilo = this.ObtenerEstilo();
             String temas = this.ObtenerTemas();
+            String eva =  this.ObtenerEvaluacion();
             salida = new ObjectOutputStream(new FileOutputStream(ruta));            
-            salida.writeObject(new Jsons(usuarios,cursos,estilo,unidades,temas));
+            salida.writeObject(new Jsons(usuarios,cursos,estilo,unidades,temas,eva));
             salida.close();
         }catch(FileNotFoundException ex){
             Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
@@ -414,8 +418,9 @@ public class Archivo {
             String cursos = this.ObtenerCursos();
             int estilo = this.ObtenerEstilo();
             String unidades = this.ObtenerUnidades();
+            String eva =  this.ObtenerEvaluacion();
             salida = new ObjectOutputStream(new FileOutputStream(ruta));            
-            salida.writeObject(new Jsons(usuarios,cursos,estilo,unidades,temas));
+            salida.writeObject(new Jsons(usuarios,cursos,estilo,unidades,temas,eva));
             salida.close();
         }catch(FileNotFoundException ex){
             Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
@@ -502,4 +507,79 @@ public class Archivo {
     // </editor-fold>
 
     
+    // <editor-fold desc="Codigo para Evaluaciones">
+    
+    //Metodo para escribir una cadena dentro del archivo binario
+    public void EscribirEvaluacion(String peva){     
+        //Guardamos el nuevo json
+        ObjectOutputStream salida = null;
+        try{
+            String usuarios = this.ObtenerUsuarios();
+            String cursos = this.ObtenerCursos();
+            int estilo = this.ObtenerEstilo();
+            String unidades = this.ObtenerUnidades();
+            String temas = this.ObtenerTemas();
+            salida = new ObjectOutputStream(new FileOutputStream(ruta));     
+            salida.writeObject(new Jsons(usuarios,cursos,estilo,unidades,temas,peva));
+            salida.close();
+        }catch(FileNotFoundException ex){
+            Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
+        }catch(IOException ex){
+            Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try{
+                salida.close();
+            }catch(IOException ex){
+                Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }        
+    }
+    
+    
+    //Obtener json de evaluacion
+    public String ObtenerEvaluacion(){
+        try{
+            FileInputStream ficheroEntrada = new FileInputStream(ruta);
+            ObjectInputStream objetoEntrada = new ObjectInputStream(ficheroEntrada);
+            // se leen dos objetos de la clase Persona
+            Jsons p1 = (Jsons)objetoEntrada.readObject();
+            // se cierra el flujo de objetos objetoEntrada
+            objetoEntrada.close();
+            return p1.evaluacion;
+        }catch (FileNotFoundException e) {
+            System.out.println("¡El fichero no existe!");
+        }catch (IOException e) {
+            System.out.println(e.getMessage());
+        }catch (Exception e) {
+            System.out.println(e.getMessage());
+        };
+        return "";        
+    }
+    
+    
+    //Metodo para obtener array de preguntas   
+    public JSONArray arrayPreguntas(){        
+        try {            
+            JSONParser parser = new JSONParser();
+            String preguntas = this.ObtenerEvaluacion();
+            if(preguntas.equals("") || (preguntas == null)){
+                return null;
+            }
+            Object obj  = parser.parse(preguntas);            
+            JSONArray array = new JSONArray();
+            array.add(obj);
+            return array;              
+        } catch (ParseException ex) {
+            Logger.getLogger(Registro.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+        return null;
+    }
+    
+    
+    
+    
+    // </editor-fold>
+
+    
+
 }
