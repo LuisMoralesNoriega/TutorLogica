@@ -50,8 +50,8 @@ public class Archivo {
         
         if(sSistemaOperativo.contains("Windows")){
             try {
-              // this.ruta = a.getCanonicalPath() + "\\Archivo\\datos.bin";
-                this.ruta = a.getCanonicalPath() + "\\src\\Archivo\\datos.bin";
+                this.ruta = a.getCanonicalPath() + "\\Archivo\\datos.bin";
+               // this.ruta = a.getCanonicalPath() + "\\src\\Archivo\\datos.bin";
                // this.Alerta("La ruta es: " + ruta);
             } catch (IOException ex) {
                 Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
@@ -67,7 +67,7 @@ public class Archivo {
         }        
     }
     
-    
+   
     // <editor-fold desc="Codigo de Loguin">
     
     //Metodo para alertas del programa
@@ -480,13 +480,25 @@ public class Archivo {
         
         File a = new File(".");
         
-        if(a.getAbsolutePath().contains("dist")){
-            aux = a.getAbsolutePath() + "\\ImagenesCurso\\";  
+        String[] ficheros = a.list();
+        
+        boolean existe = false;
+        
+        if(ficheros != null){
+            for (int x=0;x<ficheros.length;x++){
+                if(ficheros[x].equals("dist")){
+                    existe = true;
+                }
+            }
+        }
+        
+        if(!existe){
+            aux = a.getAbsolutePath() + "\\";
         }else{
-            aux = a.getAbsolutePath() + "\\src\\ImagenesCurso\\";
+            aux = a.getAbsolutePath() + "\\src\\";
         }          
         
-        return aux.replace("\\.","" );
+        return aux.replace("\\.","");
     }
         
     //Metodo para parsear el html y poner la ruta absoluta de las imagenes del curso
@@ -496,8 +508,8 @@ public class Archivo {
         Document doc = Jsoup.parse(phtml); //parsear html 
         Elements images = doc.select("img[src~=(?i)\\.(png|jpe?g|gif)]");  //seleccionamos etiqueta img      
         for (Element image : images) { //recoremos todas las imagenes del html
-            String imgsrc= ClassLoader.getSystemResource(image.attr("src")).toString(); // obtenemos la ruta correcta de la imagen            
-            image.removeAttr("src").attr("src", imgsrc); // cambiamos el atributo           
+            String rimagen = "file:\\" + this.ObtenerRutaIC() + image.attr("src").toString().replace("/","\\");
+            image.removeAttr("src").attr("src", rimagen); // cambiamos el atributo           
         }        
         nueva = doc.toString(); // devolvemos el nuevo html        
         return nueva;
@@ -579,7 +591,6 @@ public class Archivo {
     
     
     // </editor-fold>
-
     
 
 }

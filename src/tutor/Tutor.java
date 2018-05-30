@@ -7,6 +7,7 @@
 
 package tutor;
 
+import Acciones.Archivo;
 import Pantallas.Loguin;
 
 /**
@@ -18,8 +19,12 @@ public class Tutor {
     /**
      * @param args the command line arguments
      */
+    
+    
+    
     public static void main(String[] args) {
         // TODO code application logic here
+        
         Loguin log = new Loguin();
         log.setLocationRelativeTo(null);
         log.setVisible(true);

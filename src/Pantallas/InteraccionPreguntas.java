@@ -30,7 +30,7 @@ public class InteraccionPreguntas extends javax.swing.JFrame {
      */
     
     Archivo a;
-    JSONArray arrPregutnas;
+    JSONArray arrPreguntas;
     List<String> respuestas;
     public ArrayList<JRadioButton> Botones;
     
@@ -50,7 +50,7 @@ public class InteraccionPreguntas extends javax.swing.JFrame {
     public InteraccionPreguntas() {
         initComponents();
         
-        this.arrPregutnas = new JSONArray();
+        this.arrPreguntas = new JSONArray();
         
         this.inicio = 0;
         this.fin = 0;
@@ -180,18 +180,18 @@ public class InteraccionPreguntas extends javax.swing.JFrame {
                     String r2 = user.get("r2").toString();                         
                     String r3 = user.get("r3").toString();                         
                     String r4 = user.get("r4").toString();                    
-                    this.arrPregutnas.add(new Pregunta(preg, tip, r1, r2, r3, r4,codu));
+                    this.arrPreguntas.add(new Pregunta(preg, tip, r1, r2, r3, r4,codu));
                 }
             }            
         }
-        this.numpreguntas = this.arrPregutnas.size();
-        this.fin = this.arrPregutnas.size() - 1;        
+        this.numpreguntas = this.arrPreguntas.size();
+        this.fin = this.arrPreguntas.size() - 1;        
     }
     
     
     public void PreguntaInicio(){        
-        if(this.arrPregutnas != null){            
-            Pregunta pregunta = (Pregunta) this.arrPregutnas.get(this.posicion);
+        if(this.arrPreguntas != null){            
+            Pregunta pregunta = (Pregunta) this.arrPreguntas.get(this.posicion);
             String preg = pregunta.preg;
             this.jLabel3.setText("¿ " + preg + " ?");    
             
@@ -209,15 +209,15 @@ public class InteraccionPreguntas extends javax.swing.JFrame {
                 this.respuestas.add(pregunta.r4);
                 this.resactual = pregunta.r1;
                 this.tipactual = pregunta.tipo;
-            }
-            Collections.shuffle(this.respuestas);
-            JRadioButton nuevo;
-            for(String res : this.respuestas){
-                nuevo =  new JRadioButton(res);
-                this.GRespuestas.add(nuevo);
-                this.Botones.add(nuevo);
-                this.JPanelRespuestas.add(nuevo);
-            }
+                Collections.shuffle(this.respuestas);
+                JRadioButton nuevo;
+                for(String res : this.respuestas){
+                    nuevo =  new JRadioButton(res);
+                    this.GRespuestas.add(nuevo);
+                    this.Botones.add(nuevo);
+                    this.JPanelRespuestas.add(nuevo);
+                }
+            }            
             this.JPanelRespuestas.updateUI();            
         }        
     }
@@ -236,8 +236,8 @@ public class InteraccionPreguntas extends javax.swing.JFrame {
             tem.setVisible(true);
             this.dispose();
         }        
-        if(this.arrPregutnas != null){            
-            Pregunta pregunta = (Pregunta) this.arrPregutnas.get(this.posicion);
+        if(this.arrPreguntas != null){            
+            Pregunta pregunta = (Pregunta) this.arrPreguntas.get(this.posicion);
             String preg = pregunta.preg;
             this.jLabel3.setText("¿ " + preg + " ?");    
             
