@@ -11,6 +11,8 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Image;
+import com.itextpdf.text.List;
+import com.itextpdf.text.ListItem;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.html.simpleparser.HTMLWorker; 
@@ -122,11 +124,14 @@ public class Impresiones {
         
     
     //Metodo para parsear el html y poner la ruta absoluta de las imagenes del curso
-    public String ParserHTML(String phtml){
+    public String ParserHTML(String phtml) throws DocumentException{
     
         String nueva = "";     //nuevo html   
         org.jsoup.nodes.Document doc = Jsoup.parse(phtml); //parsear html 
-        Elements ele = doc.getAllElements();  //seleccionamos etiqueta img      
+        Elements ele = doc.getAllElements();  //seleccionamos etiqueta img   
+        List listado = new List(true);
+        boolean haylis = false;
+        boolean tarea = false;
         for (Element elemento : ele) {
             try {
                 String etiqueta = elemento.tagName();    
@@ -138,7 +143,9 @@ public class Impresiones {
                         fh1.setSize(30);
                         fh1.setColor(BaseColor.RED);
                         fh1.setStyle(Font.BOLD);
-                        
+                        if(elemento.text().contains("Tarea")){
+                            tarea = true;
+                        }
                         Paragraph ph1 = new Paragraph(elemento.text(),fh1);                        
                         ph1.setAlignment(1); // con 1 centra el texto                        
                         this.document.add(ph1);
@@ -173,8 +180,6 @@ public class Impresiones {
                         break;
                         
                     case "img":
-                        System.out.println("imagen");
-                        System.out.println(elemento.attr("src"));
                         
                         Image imagen = Image.getInstance(elemento.attr("src"));
                         imagen.setAlignment(1);
@@ -190,8 +195,10 @@ public class Impresiones {
             } catch (IOException ex) {
                 Logger.getLogger(Impresiones.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
         }
+        
+        
+        
         nueva = doc.toString(); // devolvemos el nuevo html        
         return nueva;
     }

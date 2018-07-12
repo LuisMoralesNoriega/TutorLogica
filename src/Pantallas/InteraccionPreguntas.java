@@ -91,9 +91,10 @@ public class InteraccionPreguntas extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         ScrollRespuestas = new javax.swing.JScrollPane();
         JPanelRespuestas = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -104,8 +105,6 @@ public class InteraccionPreguntas extends javax.swing.JFrame {
 
         JPanelRespuestas.setLayout(new java.awt.GridLayout(0, 1));
         ScrollRespuestas.setViewportView(JPanelRespuestas);
-
-        jLabel3.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
 
         jButton5.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/siguiente.png"))); // NOI18N
@@ -118,6 +117,10 @@ public class InteraccionPreguntas extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
         jLabel11.setText("Siguiente");
 
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -125,12 +128,12 @@ public class InteraccionPreguntas extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 674, Short.MAX_VALUE)
                     .addComponent(ScrollRespuestas)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 674, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(513, Short.MAX_VALUE)
                 .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -141,9 +144,9 @@ public class InteraccionPreguntas extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(14, 14, 14)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ScrollRespuestas, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -193,8 +196,8 @@ public class InteraccionPreguntas extends javax.swing.JFrame {
         if(this.arrPreguntas != null){            
             Pregunta pregunta = (Pregunta) this.arrPreguntas.get(this.posicion);
             String preg = pregunta.preg;
-            this.jLabel3.setText("¿ " + preg + " ?");    
-            
+            this.jTextArea1.setText("¿ " + preg + " ?");    
+            this.jTextArea1.disable();
             if(pregunta.tipo.equals("1")){
                 JLabel r = new JLabel("Escriba la respuesta correcta:");
                 this.JPanelRespuestas.add(r);
@@ -239,8 +242,8 @@ public class InteraccionPreguntas extends javax.swing.JFrame {
         if(this.arrPreguntas != null){            
             Pregunta pregunta = (Pregunta) this.arrPreguntas.get(this.posicion);
             String preg = pregunta.preg;
-            this.jLabel3.setText("¿ " + preg + " ?");    
-            
+            this.jTextArea1.setText("¿ " + preg + " ?");    
+            this.jTextArea1.disable();
             if(pregunta.tipo.equals("1")){
                 JLabel r = new JLabel("Escriba la respuesta:");
                 this.JPanelRespuestas.add(r);
@@ -374,6 +377,7 @@ public class InteraccionPreguntas extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 }
