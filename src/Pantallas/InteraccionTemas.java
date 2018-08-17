@@ -9,7 +9,10 @@ import Acciones.Archivo;
 import Acciones.Compartidas;
 import Acciones.Impresiones;
 import Entidades.Tema;
+import java.awt.Dimension;
+import java.awt.Point;
 import javax.swing.JLabel;
+import javax.swing.JScrollBar;
 import javax.swing.text.Document;
 import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.text.html.StyleSheet;
@@ -314,6 +317,7 @@ public class InteraccionTemas extends javax.swing.JFrame {
     }
         
     public void TemaInicio(){
+        this.inicio = this.posicion;
         
         if(this.arrTemas != null){            
             Tema tema = (Tema) this.arrTemas.get(this.posicion);
@@ -324,6 +328,7 @@ public class InteraccionTemas extends javax.swing.JFrame {
     }
     
     public void TemaAnterior(){
+        
         if(this.inicio != this.posicion){
             this.posicion--;        
         }        
@@ -343,6 +348,19 @@ public class InteraccionTemas extends javax.swing.JFrame {
             String cono = tema.contenidoO;
             this.ActualizarEditor(cono);            
         }
+    }
+    
+    public void comprobarbotones(){
+        
+        if(this.inicio == this.posicion){
+            this.jButton4.disable();        
+        }else if(this.fin == this.posicion){
+            this.jButton5.disable();
+        }else{
+            this.jButton4.enable();
+            this.jButton5.enable();
+        }
+        
     }
     
     public void ActualizarEditor(String contenido){
@@ -365,10 +383,9 @@ public class InteraccionTemas extends javax.swing.JFrame {
         Document doc = kit.createDefaultDocument();
         this.jEditorHtml.setDocument(doc);
         this.jEditorHtml.setText(htmlString);   
-        
-        
+        this.jEditorHtml.setCaretPosition(0);        
         this.ScrollContenido.getVerticalScrollBar().setModel(this.ScrollContenido.getVerticalScrollBar().getModel());
-
+        this.comprobarbotones();
     }
     
     

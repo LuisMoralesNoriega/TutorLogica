@@ -15,18 +15,14 @@ import com.itextpdf.text.List;
 import com.itextpdf.text.ListItem;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.html.simpleparser.HTMLWorker; 
-import com.itextpdf.text.html.simpleparser.StyleSheet;
 import com.itextpdf.text.pdf.PdfWriter; 
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.StringReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.jsoup.Jsoup;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 /**
@@ -124,17 +120,14 @@ public class Impresiones {
         
     
     //Metodo para parsear el html y poner la ruta absoluta de las imagenes del curso
-    public String ParserHTML(String phtml) throws DocumentException{
+    public String ParserHTML(String phtml) throws DocumentException, BadElementException, IOException{
     
         String nueva = "";     //nuevo html   
         org.jsoup.nodes.Document doc = Jsoup.parse(phtml); //parsear html 
-        Elements ele = doc.getAllElements();  //seleccionamos etiqueta img   
-        List listado = new List(true);
-        boolean haylis = false;
-        boolean tarea = false;
-        for (Element elemento : ele) {
+        Elements elemento = doc.getAllElements();  //seleccionamos etiqueta img   
+        for (int i = 0; i < elemento.size(); i++){
             try {
-                String etiqueta = elemento.tagName();    
+                String etiqueta = elemento.get(i).tagName();    
                 
                 switch (etiqueta){
                     case "h1":
@@ -143,10 +136,7 @@ public class Impresiones {
                         fh1.setSize(30);
                         fh1.setColor(BaseColor.RED);
                         fh1.setStyle(Font.BOLD);
-                        if(elemento.text().contains("Tarea")){
-                            tarea = true;
-                        }
-                        Paragraph ph1 = new Paragraph(elemento.text(),fh1);                        
+                        Paragraph ph1 = new Paragraph(elemento.get(i).text(),fh1);                        
                         ph1.setAlignment(1); // con 1 centra el texto                        
                         this.document.add(ph1);
                         
@@ -159,7 +149,7 @@ public class Impresiones {
                         fh2.setColor(BaseColor.BLUE);
                         fh2.setStyle(Font.BOLD);
                         
-                        Paragraph ph2 = new Paragraph(elemento.text(),fh2);                        
+                        Paragraph ph2 = new Paragraph(elemento.get(i).text(),fh2);                        
                         ph2.setAlignment(3); // con 1 centra el texto                        
                         this.document.add(ph2);
                         
@@ -171,31 +161,64 @@ public class Impresiones {
                         fp.setSize(15);
                         fp.setColor(BaseColor.BLACK);
                         
-                        Paragraph pp2 = new Paragraph(elemento.text(),fp);                        
+                        Paragraph pp2 = new Paragraph(elemento.get(i).text(),fp);                        
                         pp2.setAlignment(4); // con 1 centra el texto                        
-                        this.document.add(pp2);
-                        
+                        this.document.add(pp2);                      
                         
                         
                         break;
                         
                     case "img":
                         
-                        Image imagen = Image.getInstance(elemento.attr("src"));
+                        Image imagen = Image.getInstance(elemento.get(i).attr("src"));
                         imagen.setAlignment(1);
                         document.add(imagen);
                         
                         break;
+                    
+                    case "ol":
+                        
+                        List listadool = new List(true);
+                        String elemol = elemento.get(i).text();
+                        System.out.println(elemol);
+                        String[] partsol = elemol.split("\n");
+                        
+                        for(int j = 0; j < partsol.length; j++){
+                            ListItem it = new ListItem(partsol[j]); 
+                            listadool.add(it);
+                            i = i + 2;
+                        }
+                        
+                        document.add(listadool);
+                        break;
+                        
+                    case "ul":
+                        
+                        List listado = new List();
+                        String elem = elemento.get(i).text();
+                        System.out.println(elem);
+                        String[] parts = elem.split(" ");
+                        
+                        for(int j = 0; j < parts.length; j++){
+                            ListItem it = new ListItem(parts[j]); 
+                            listado.add(it);
+                            i = i + 2;
+                        }
+                        
+                        document.add(listado);
+                        
+                        break;
+                    
+                      
                         
                     default:
-                        // System.out.println("No entro");
+                        
                 }
             } catch (DocumentException ex) {
                 Logger.getLogger(Impresiones.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(Impresiones.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        
         
         
         

@@ -283,7 +283,7 @@ public class InteraccionPreguntas extends javax.swing.JFrame {
                 this.Mensaje("Respuesta Correcta");
                 this.numbuenas++;
             }else{
-                this.Mensaje("Respuesta Incorrecta");
+                this.Mensaje("Respuesta Incorrecta \nLa respuesta correcta es:\n\n\t" + this.resactual);
                 this.nummalas++;
             }            
         }else{
@@ -299,7 +299,7 @@ public class InteraccionPreguntas extends javax.swing.JFrame {
                  this.Mensaje("Respuesta Correcta");
                  this.numbuenas++;
             }else{
-                this.Mensaje("Respuesta Incorrecta");
+                this.Mensaje("Respuesta Incorrecta \nLa respuesta correcta es:\n\n\t" + this.resactual);
                 this.nummalas++;
             }  
         }       
